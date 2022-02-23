@@ -7,7 +7,6 @@ import { fileURLToPath } from "url";
 import morgan from "morgan";
 import routes from "./routes/routes.js";
 
-//configuration of env file
 dotenv.config();
 
 const app = express();
@@ -23,7 +22,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-//Database connection
 const databaseConnection = async () => {
   try {
     await mongoose.connect(process.env.CONNECTION_DB_URI, {
