@@ -4,7 +4,8 @@ const roundSchema = mongoose.Schema({
   points: Number,
   weather: String,
   course: String,
-  mood: String
+  mood: String,
+  playerID: String
 });
 
 const Round = mongoose.model("Round", roundSchema);
