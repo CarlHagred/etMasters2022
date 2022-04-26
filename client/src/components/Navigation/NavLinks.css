@@ -23,7 +23,7 @@
   padding: 0.5rem;
 }
 
-.nav-links a:hover,
+/* .nav-links a:hover,
 .nav-links a:active,
 .nav-links a.active {
   background: #0192fa;
@@ -35,7 +35,7 @@
 
 .nav-links button {
   cursor: pointer;
-  /* border: 1px solid #292929; */
+  border: 1px solid #292929;
   color: #292929;
   background: transparent;
   padding: 0.5rem;
@@ -53,7 +53,7 @@
   border-radius: 12px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
 }
-
+*/
 @media (min-width: 768px) {
   .nav-links {
     flex-direction: row;
@@ -68,7 +68,7 @@
     text-decoration: none;
   }
 
-  .nav-links button {
+  /* .nav-links button {
     border: 1px solid white;
     color: white;
     background: transparent;
@@ -80,5 +80,5 @@
     color: #292929;
     border-radius: 12px;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-  }
+  } */
 }
