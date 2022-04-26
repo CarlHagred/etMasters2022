@@ -1,20 +1,24 @@
-import Competition from "../../models/competition.js";
-import Player from "../../models/player.js";
+import Competition from '../../models/competition.js';
+import Player from '../../models/player.js';
 
 export const postCompetition = async (req, res) => {
-  const name = "Masters";
-
-  const newCompetition = new Competition({
-    name: name,
-    rounds: [],
-    players: [],
+  const name = 'Masters';
+  Competition.findOne({ name: name }, async (err, doc) => {
+    if (err) res.send(err);
+    if (!doc) {
+      const newCompetition = new Competition({
+        name: name,
+        rounds: [],
+        players: [],
+      });
+      await newCompetition.save();
+    }
   });
-  await newCompetition.save();
 };
 
 export const postPlayer = async (req, res) => {
-  const name = "joel"; //req.body.name;
-  const password = "trassel1"; //req.body.password;
+  const name = 'joel'; //req.body.name;
+  const password = 'trassel1'; //req.body.password;
   const handicap = 5.9; //req.body.handicap;
 
   Player.findOne({ name: name }, async (err, doc) => {
