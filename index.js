@@ -9,6 +9,7 @@ import routes from './routes/routes.js';
 import { postPlayer } from './controllers/players/playerEndpoints.js';
 import { postCompetition } from './controllers/admin/adminEndpoints.js';
 import { getCompetitions } from './controllers/shared/sharedEndpoints.js';
+import { postRound } from './controllers/players/roundEndPoint.js';
 
 dotenv.config();
 
@@ -44,4 +45,6 @@ databaseConnection();
 postPlayer();
 postCompetition();
 getCompetitions();
+postRound();
+
 export default app;
