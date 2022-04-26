@@ -24,7 +24,7 @@ app.get("*", (req, res) => {
 
 const databaseConnection = async () => {
   try {
-    await mongoose.connect(process.env.CONNECTION_DB_URI, {
+    mongoose.connect(process.env.CONNECTION_DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
