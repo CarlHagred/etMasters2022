@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const playerSchema = mongoose.Schema({
   name: String,
   password: String,
   statistics: {
-    score: Int,
-    rounds: Int,
+    score: Number,
+    rounds: Number,
   },
 });
 
-const Player = mongoose.model("Player", playerSchema);
+const Player = mongoose.model('Player', playerSchema);
 
 export default Player;
