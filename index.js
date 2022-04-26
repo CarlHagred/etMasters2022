@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import morgan from "morgan";
 import routes from "./routes/routes.js";
 import { postPlayer } from "./controllers/admin/adminEndpoints.js";
+import { deletePlayer } from "./controllers/admin/adminEndpoints.js";
 import { postCompetition } from "./controllers/admin/adminEndpoints.js";
 import { getCompetitions } from "./controllers/shared/sharedEndpoints.js";
 import { postRound } from "./controllers/players/roundEndPoint.js";
@@ -43,8 +44,9 @@ const databaseConnection = async () => {
 databaseConnection();
 
 postPlayer();
-postCompetition();
-getCompetitions();
-postRound();
+deletePlayer();
+//postCompetition();
+//getCompetitions();
+//postRound();
 
 export default app;

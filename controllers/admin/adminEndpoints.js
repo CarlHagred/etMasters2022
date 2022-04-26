@@ -40,3 +40,15 @@ export const getPlayers = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const deletePlayer = async (req, res) => {
+  const name = "joel"; //req.body.name;
+  await Player.deleteOne({ name: name }).then((player) => {
+    if (!player) {
+      /* return res.status(404).send({
+        message: "Player not found with name: " + name,
+      });*/
+    }
+    //res.status(200).send({ message: "Patient deleted successfully!" });
+  });
+};
