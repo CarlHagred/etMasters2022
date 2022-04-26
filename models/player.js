@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const playerSchema = mongoose.Schema({
   name: String,
   password: String,
-  handicap: String,
+  handicap: Number,
   competition: [{ type: mongoose.Types.ObjectId }],
 });
 
