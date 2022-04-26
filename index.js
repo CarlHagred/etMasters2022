@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import morgan from 'morgan';
 import routes from './routes/routes.js';
 import { postPlayer } from './controllers/players/playerEndpoints.js';
+import { postRound } from './controllers/players/roundEndPoint.js';
 
 dotenv.config();
 
@@ -40,5 +41,6 @@ const databaseConnection = async () => {
 databaseConnection();
 
 postPlayer();
+postRound();
 
 export default app;

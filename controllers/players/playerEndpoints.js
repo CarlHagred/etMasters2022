@@ -1,7 +1,7 @@
 import Player from '../../models/player.js';
 
 export const postPlayer = async (req, res) => {
-  const name = 'gustav';
+  const name = 'Jucke';
   const password = 'gedenGeden';
   const handicap = 34; // req.body.handicap;
 
