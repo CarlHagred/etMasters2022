@@ -24,7 +24,7 @@ export const postRound = async (req, res) => {
       let competition;
 
       try {
-        competition = await Competition.findById('6268dee44da1bf35c03268fa');
+        competition = await Competition.findById('626908b9f30bd77383f8f935');
       } catch (err) {
         res.status(404).json({ message: error.message });
       }
