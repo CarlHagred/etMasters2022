@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 export const postRound = async (req, res) => {
   const points = 36;
   const weather = 'sol';
-  const course = 'PGA Links';
+  const course = 'bögbanan';
   const mood = 'glad as fuck';
   const playerId = '6267baede7c6e6b3c324c7b2';
 
@@ -46,5 +46,15 @@ export const postRound = async (req, res) => {
     }
   });
 
+
+  
   //res.status(201).json('Success');
 };
+export const getRoundsPlayed = async (req,res)=>{
+  const playerId= "123123123"
+  Round.findOne({playerId:playerId}, async (err,doc)=>{
+    
+    
+  });
+
+}

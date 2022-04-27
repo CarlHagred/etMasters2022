@@ -13,7 +13,7 @@ import {
   setPatientInactive,
 } from "./controllers/admin/adminEndpoints.js";
 import { getCompetitions } from "./controllers/shared/sharedEndpoints.js";
-import { postRound } from "./controllers/players/roundEndPoint.js";
+import { getRoundsPlayed, postRound } from "./controllers/players/roundEndPoint.js";
 import { registerPlayerToCompetition } from "./controllers/players/playerEndpoints.js";
 import { login } from "./controllers/login/login.js";
 
@@ -53,7 +53,8 @@ databaseConnection();
 //deletePlayer();
 //postCompetition();
 //getCompetitions();
-//postRound();
+postRound();
 //setPatientInactive();
 //login();
+getRoundsPlayed();
 export default app;
