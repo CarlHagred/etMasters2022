@@ -12,12 +12,14 @@ import {
   postCompetition,
   setPatientInactive,
 } from './controllers/admin/adminEndpoints.js';
-import { getCompetitions } from './controllers/shared/sharedEndpoints.js';
-import { postRound } from './controllers/players/roundEndPoint.js';
 import {
   registerCompetitionToPlayer,
   registerPlayerToCompetition,
 } from './controllers/players/playerEndpoints.js';
+
+import { getCompetitions } from './controllers/shared/sharedEndpoints.js';
+import { postRound } from './controllers/players/roundEndPoint.js';
+import { login } from './controllers/login/login.js';
 
 dotenv.config();
 
@@ -58,5 +60,5 @@ postCompetition();
 //getCompetitions();
 postRound();
 //setPatientInactive();
-
+//login();
 export default app;
