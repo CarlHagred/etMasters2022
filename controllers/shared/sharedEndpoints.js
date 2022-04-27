@@ -6,3 +6,5 @@ export const getCompetitions = async (req, res) => {
 };
 
 export const postRounds = async (req, res) => {};
+
+export const getCourses = async (req, res) => {};

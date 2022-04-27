@@ -2,10 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LeaderBoard from './components/Leaderboard';
 import MainNav from './components/Navigation/MainNav';
-import Rounds from './components/Rounds';
 import Users from './components/Users';
 import './App.css';
-import Round from './components/Round';
 import RoundList from './components/RoundList';
 
 const App = () => {

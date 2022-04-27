@@ -1,6 +1,7 @@
 import Competition from '../../models/competition.js';
 import Player from '../../models/player.js';
 import Round from '../../models/round.js';
+import Course from '../../models/course.js';
 
 export const postCompetition = async (req, res) => {
   const name = 'Masters';
@@ -71,4 +72,21 @@ export const setPatientInactive = async (req, res) => {
       }
     }
   );
+};
+
+export const postCourse = async (req, res) => {
+  const name = 'PGA Nationals';
+  const place = 'Bara';
+
+  Course.findOne({ name: name }, async (err, doc) => {
+    if (err) res.send(err);
+    if (!doc) {
+      const newCourse = new Course({
+        name: name,
+        place: place,
+      });
+      await newCourse.save();
+      //res.status(201).json('Success');
+    }
+  });
 };
