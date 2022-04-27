@@ -63,6 +63,7 @@ export const registerCompetitionToPlayer = async (req, res) => {
       }
     }
   });
+
 };
 
 export const changePlayerHandicap = async (req, res) => {
@@ -78,4 +79,5 @@ export const changePlayerHandicap = async (req, res) => {
       }
     }
   );
+
 };
