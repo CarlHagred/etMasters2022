@@ -1,6 +1,6 @@
-import Player from '../../models/player.js';
-import mongoose from 'mongoose';
-import Competition from '../../models/competition.js';
+import Player from "../../models/player.js";
+import mongoose from "mongoose";
+import Competition from "../../models/competition.js";
 
 export const getPlayers = async (req, res) => {
   try {
@@ -13,10 +13,10 @@ export const getPlayers = async (req, res) => {
 
 export const registerPlayerToCompetition = async (req, res) => {
   let competition;
-  let player = await Player.findById('6267baede7c6e6b3c324c7b2');
+  let player = await Player.findById("6267baede7c6e6b3c324c7b2");
 
   try {
-    competition = await Competition.findById('6268dee44da1bf35c03268fa');
+    competition = await Competition.findById("6268dee44da1bf35c03268fa");
   } catch (err) {
     res.status(404).json({ message: error.message });
   }
@@ -30,4 +30,19 @@ export const registerPlayerToCompetition = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const changePlayerHandicap = async (req, res) => {
+  const playerName = "gustav"; //req.params.playerName;
+  const handicap = 20; //req.params.handicap;
+  Player.findOneAndUpdate(
+    { name: playerName },
+    { $set: { handicap: handicap } },
+    { new: true },
+    (err, doc) => {
+      if (doc) {
+        //res.status(200).send("Success");
+      }
+    }
+  );
 };
