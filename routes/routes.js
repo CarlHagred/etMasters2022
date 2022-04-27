@@ -1,6 +1,6 @@
 import express from "express";
 
-import { postPlayer } from "../controllers/players/playerEndpoints.js";
+import { postPlayer } from "../controllers/admin/adminEndpoints.js";
 
 const router = express.Router();
 
