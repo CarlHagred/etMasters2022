@@ -11,20 +11,17 @@ import {
   deletePlayer,
   postCompetition,
   changeRoundPoint,
-  postCourse,
 } from './controllers/admin/adminEndpoints.js';
 import {
   getCompetitions,
-  getCourses,
+  deleteRound,
 } from './controllers/shared/sharedEndpoints.js';
-
 import {
   getRoundsPlayed,
   postRound,
 } from './controllers/players/roundEndPoint.js';
-
-import { changePlayerHandicap } from './controllers/players/playerEndpoints.js';
 import {
+  changePlayerHandicap,
   registerCompetitionToPlayer,
   registerPlayerToCompetition,
 } from './controllers/players/playerEndpoints.js';
@@ -63,6 +60,7 @@ databaseConnection();
 
 // registerPlayerToCompetition();
 // registerCompetitionToPlayer();
+
 //postPlayer();
 //deletePlayer();
 // postCompetition();
@@ -72,5 +70,16 @@ databaseConnection();
 //login();
 // getRoundsPlayed();
 //postCourse();
-getCourses();
+//getCourses();
+
+// //postPlayer();
+// //deletePlayer();
+// postCompetition();
+// //getCompetitions();
+// postRound();
+// //setPatientInactive();
+// //login();
+// getRoundsPlayed();
+// deleteRound();
+
 export default app;
