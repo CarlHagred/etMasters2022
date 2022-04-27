@@ -1,6 +1,6 @@
-import Player from '../../models/player.js';
-import mongoose from 'mongoose';
-import Competition from '../../models/competition.js';
+import Player from "../../models/player.js";
+import mongoose from "mongoose";
+import Competition from "../../models/competition.js";
 
 export const getPlayers = async (req, res) => {
   try {
@@ -63,4 +63,19 @@ export const registerCompetitionToPlayer = async (req, res) => {
       }
     }
   });
+};
+
+export const changePlayerHandicap = async (req, res) => {
+  const playerName = "gustav"; //req.params.playerName;
+  const handicap = 20; //req.params.handicap;
+  Player.findOneAndUpdate(
+    { name: playerName },
+    { $set: { handicap: handicap } },
+    { new: true },
+    (err, doc) => {
+      if (doc) {
+        //res.status(200).send("Success");
+      }
+    }
+  );
 };

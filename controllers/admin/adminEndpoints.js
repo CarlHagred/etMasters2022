@@ -58,8 +58,9 @@ export const deletePlayer = async (req, res) => {
   });
 };
 
-export const setPatientInactive = async (req, res) => {
-  const roundID = '6268dfc4a5a0770b88aa7bca'; //req.params.roundID;
+
+export const changeRoundPoint = async (req, res) => {
+  const roundID = "6268dfc4a5a0770b88aa7bca"; //req.params.roundID;
   const points = 34; //req.params.points;
   Round.findOneAndUpdate(
     { _id: roundID },
