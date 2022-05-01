@@ -22,6 +22,7 @@ import {
 } from './controllers/players/roundEndPoint.js';
 import {
   changePlayerHandicap,
+  getListOfPlayedRounds,
   registerCompetitionToPlayer,
   registerPlayerToCompetition,
 } from './controllers/players/playerEndpoints.js';
@@ -76,10 +77,11 @@ databaseConnection();
 // //deletePlayer();
 // postCompetition();
 // //getCompetitions();
-// postRound();
+//postRound();
 // //setPatientInactive();
 // //login();
 // getRoundsPlayed();
 // deleteRound();
+getListOfPlayedRounds();
 
 export default app;

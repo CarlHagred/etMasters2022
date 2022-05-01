@@ -1,14 +1,14 @@
-import Competition from "../../models/competition.js";
-import Player from "../../models/player.js";
-import Round from "../../models/round.js";
-import mongoose from "mongoose";
+import Competition from '../../models/competition.js';
+import Player from '../../models/player.js';
+import Round from '../../models/round.js';
+import mongoose from 'mongoose';
 
 export const postRound = async (req, res) => {
-  const points = 36;
-  const weather = "sol";
-  const course = "bögbanan";
-  const mood = "glad as fuck";
-  const playerId = "6267baede7c6e6b3c324c7b2";
+  const points = 44;
+  const weather = 'Moln';
+  const course = 'verkligen verkligen inte bögbanan';
+  const mood = 'Happy';
+  const playerId = '6267baede7c6e6b3c324c7b2';
 
   Round.findOne({ course: course }, async (err, doc) => {
     if (err) res.send(err);
@@ -24,13 +24,13 @@ export const postRound = async (req, res) => {
       let competition;
 
       try {
-        competition = await Competition.findById("626908b9f30bd77383f8f935");
+        competition = await Competition.findById('626908b9f30bd77383f8f935');
       } catch (err) {
         res.status(404).json({ message: error.message });
       }
 
       if (!competition) {
-        console.log("Could not find player for provided id");
+        console.log('Could not find player for provided id');
       }
 
       try {
@@ -49,6 +49,6 @@ export const postRound = async (req, res) => {
   //res.status(201).json('Success');
 };
 export const getRoundsPlayed = async (req, res) => {
-  const playerId = "123123123";
+  const playerId = '123123123';
   Round.findOne({ playerId: playerId }, async (err, doc) => {});
 };

@@ -1,6 +1,7 @@
-import Player from "../../models/player.js";
-import mongoose from "mongoose";
-import Competition from "../../models/competition.js";
+import Player from '../../models/player.js';
+import mongoose from 'mongoose';
+import Competition from '../../models/competition.js';
+import Round from '../../models/round.js';
 
 export const getPlayers = async (req, res) => {
   try {
@@ -63,11 +64,10 @@ export const registerCompetitionToPlayer = async (req, res) => {
       }
     }
   });
-
 };
 
 export const changePlayerHandicap = async (req, res) => {
-  const playerName = "gustav"; //req.params.playerName;
+  const playerName = 'gustav'; //req.params.playerName;
   const handicap = 20; //req.params.handicap;
   Player.findOneAndUpdate(
     { name: playerName },
@@ -79,5 +79,29 @@ export const changePlayerHandicap = async (req, res) => {
       }
     }
   );
+};
 
+export const getListOfPlayedRounds = async (req, res) => {
+  //competition: req.params osv
+  const competition = await Competition.findById('626908b9f30bd77383f8f935')
+    .populate('players', 'name')
+
+    .populate({
+      path: 'rounds',
+      populate: { path: 'player', model: 'Player' },
+    });
+  console.log(competition);
+
+  let scoreList = [];
+
+  competition.rounds.forEach((round) => {
+    if (scoreList.hasOwnProperty(round.player.name)) {
+      scoreList[round.player.name] =
+        scoreList[round.player.name] + round.points;
+    } else {
+      scoreList[round.player.name] = round.points;
+    }
+  });
+  console.log(scoreList);
+  scoreList.sort();
 };
