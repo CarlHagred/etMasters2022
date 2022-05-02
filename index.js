@@ -63,7 +63,7 @@ registerCompetitionToPlayer();
 //deletePlayer();
 postCompetition();
 //getCompetitions();
-postRound();
+//postRound();
 //setPatientInactive();
 //login();
 getRoundsPlayed();
