@@ -11,6 +11,7 @@ import {
   deletePlayer,
   postCompetition,
   changeRoundPoint,
+  getSpecificPlayer,
 } from './controllers/admin/adminEndpoints.js';
 import {
   getCompetitions,
@@ -25,6 +26,7 @@ import {
 import {
   changePlayerHandicap,
   getListOfPlayedRounds,
+  getPlayers,
   getTotalScoreForPlayer,
   registerCompetitionToPlayer,
   registerPlayerToCompetition,
@@ -68,12 +70,14 @@ databaseConnection();
 //postPlayer();
 //deletePlayer();
 
-getCompetitions();
-getSpecificCompetition();
+// getCompetitions();
+// getSpecificCompetition();
 // postRound();
 //setPatientInactive();
 //login();
 // getRoundsPlayed();
+getPlayers();
+getSpecificPlayer();
 //postCourse();
 // getCourses();
 

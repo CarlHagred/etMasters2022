@@ -6,9 +6,13 @@ import Round from '../../models/round.js';
 export const getPlayers = async (req, res) => {
   try {
     const players = await Player.find();
-    res.status(200).json(players);
+    players.forEach((player) => {
+      console.log(player.name, player.handicap);
+    });
+    // console.log(players);
+    // res.status(200).json(players);
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    //res.status(404).json({ message: error.message });
   }
 };
 
