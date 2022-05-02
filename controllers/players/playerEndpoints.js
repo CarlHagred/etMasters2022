@@ -108,7 +108,6 @@ export const getTotalScoreForPlayer = async (req, res) => {
   const playerName = 'Jucke';
   const competition = await Competition.findById('626908b9f30bd77383f8f935')
     .populate('players', 'name')
-
     .populate({
       path: 'rounds',
       populate: { path: 'player', model: 'Player' },

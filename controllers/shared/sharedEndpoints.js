@@ -4,15 +4,24 @@ import Course from '../../models/course.js';
 import Round from '../../models/round.js';
 
 export const getCompetitions = async (req, res) => {
-  let competition = await Competition.findById('6267cc1557687630f07262ed');
-  console.log(competition);
+  const competition = await Competition.find();
+  competition.forEach((comp) => {
+    console.log(comp.name);
+  });
+};
+
+export const getSpecificCompetition = async (req, res) => {
+  const competition = await Competition.findById('626908b9f30bd77383f8f935');
+  console.log(competition.name);
 };
 
 export const postRounds = async (req, res) => {};
 
 export const getCourses = async (req, res) => {
   const course = await Course.find();
-  console.log(course);
+  course.forEach((cours) => {
+    console.log(cours.name, cours.place);
+  });
 };
 
 export const deleteRound = async (req, res) => {

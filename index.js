@@ -15,6 +15,8 @@ import {
 import {
   getCompetitions,
   deleteRound,
+  getCourses,
+  getSpecificCompetition,
 } from './controllers/shared/sharedEndpoints.js';
 import {
   getRoundsPlayed,
@@ -65,14 +67,15 @@ databaseConnection();
 
 //postPlayer();
 //deletePlayer();
-// postCompetition();
-//getCompetitions();
+
+getCompetitions();
+getSpecificCompetition();
 // postRound();
 //setPatientInactive();
 //login();
 // getRoundsPlayed();
 //postCourse();
-//getCourses();
+// getCourses();
 
 // //postPlayer();
 // //deletePlayer();
@@ -83,6 +86,6 @@ databaseConnection();
 // //login();
 // getRoundsPlayed();
 // deleteRound();
-getTotalScoreForPlayer();
+// getTotalScoreForPlayer();
 
 export default app;
