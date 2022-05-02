@@ -23,6 +23,7 @@ import {
 import {
   changePlayerHandicap,
   getListOfPlayedRounds,
+  getTotalScoreForPlayer,
   registerCompetitionToPlayer,
   registerPlayerToCompetition,
 } from './controllers/players/playerEndpoints.js';
@@ -82,6 +83,6 @@ databaseConnection();
 // //login();
 // getRoundsPlayed();
 // deleteRound();
-getListOfPlayedRounds();
+getTotalScoreForPlayer();
 
 export default app;

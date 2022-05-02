@@ -90,7 +90,6 @@ export const getListOfPlayedRounds = async (req, res) => {
       path: 'rounds',
       populate: { path: 'player', model: 'Player' },
     });
-  console.log(competition);
 
   let scoreList = [];
 
@@ -102,6 +101,34 @@ export const getListOfPlayedRounds = async (req, res) => {
       scoreList[round.player.name] = round.points;
     }
   });
-  console.log(scoreList);
   scoreList.sort();
+};
+
+export const getTotalScoreForPlayer = async (req, res) => {
+  const playerName = 'Jucke';
+  const competition = await Competition.findById('626908b9f30bd77383f8f935')
+    .populate('players', 'name')
+
+    .populate({
+      path: 'rounds',
+      populate: { path: 'player', model: 'Player' },
+    });
+  let totalScore = [];
+
+  competition.rounds.forEach((round) => {
+    //console.log(round.player._id.toString());
+    if (playerName === round.player.name) {
+      if (totalScore.hasOwnProperty(round.player.name)) {
+        totalScore[round.player.name] =
+          totalScore[round.player.name] + round.points;
+      } else {
+        totalScore[round.player.name] = round.points;
+      }
+    } else {
+      /* return res.status(404).send({
+        message: "Player not found with name: " + playerName,
+      });*/
+    }
+  });
+  console.log(totalScore);
 };
