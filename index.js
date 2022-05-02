@@ -6,6 +6,7 @@ import * as path from "path";
 import { fileURLToPath } from "url";
 import morgan from "morgan";
 import routes from "./routes/routes.js";
+import cors from "cors";
 import {
   postPlayer,
   deletePlayer,
@@ -40,6 +41,14 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
+app.use(express.static("public")); //osäker om nödvändig
 app.use("/api", routes);
 app.use(morgan("dev"));
 
