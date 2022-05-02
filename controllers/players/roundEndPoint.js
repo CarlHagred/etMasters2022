@@ -4,11 +4,11 @@ import Round from '../../models/round.js';
 import mongoose from 'mongoose';
 
 export const postRound = async (req, res) => {
-  const points = 44;
-  const weather = 'Moln';
-  const course = 'verkligen verkligen inte bögbanan';
-  const mood = 'Happy';
-  const playerId = '6267baede7c6e6b3c324c7b2';
+  const points = 36;
+  const weather = 'sol';
+  const course = 'Reftele';
+  const mood = 'glad as fuck';
+  const playerId = '6267bb834df7634e3364cbcf';
 
   Round.findOne({ course: course }, async (err, doc) => {
     if (err) res.send(err);
@@ -48,7 +48,20 @@ export const postRound = async (req, res) => {
 
   //res.status(201).json('Success');
 };
-export const getRoundsPlayed = async (req, res) => {
-  const playerId = '123123123';
-  Round.findOne({ playerId: playerId }, async (err, doc) => {});
-};
+export const getRoundsPlayed = async (req,res)=>{
+  let nbrOfRounds=0
+  const playerId= "6267baede7c6e6b3c324c7b2"
+  const course ="bögbanan"
+  //const playerId="hej"
+  Round.find({player:playerId}, async (err,doc)=>{
+    console.log(doc);
+    if(doc){
+    for(let i=0;i<doc.length;i++){
+      nbrOfRounds +=1
+    }
+    console.log(nbrOfRounds);
+  }
+  });
+  res=nbrOfRounds;
+
+}
