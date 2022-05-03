@@ -1,13 +1,13 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-import { createPlayer, getPlayers } from '../api';
-import Card from '../components/UI/Card';
+import { createPlayer, getPlayers } from "../api";
+import Card from "../components/UI/Card";
 
 const Users = () => {
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [handicap, setHandicap] = useState('');
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [handicap, setHandicap] = useState("");
   const [players, setPlayers] = useState([]);
 
   const handleGetPlayers = async () => {
@@ -29,7 +29,7 @@ const Users = () => {
   //console.log(players);
 
   return (
-    <React.Fragment>
+    <>
       <Card>
         <form>
           <label>
@@ -72,7 +72,7 @@ const Users = () => {
           ))}
         </ul>
       </Card>
-    </React.Fragment>
+    </>
   );
 };
 

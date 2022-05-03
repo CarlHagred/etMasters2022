@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
-const serverUrl = 'http://localhost:8000/api';
+const serverUrl = "http://localhost:8000/api";
 
 /* ===== Login calls ===== */
 
 export const createPlayer = (params) => {
   axios({
-    method: 'POST',
+    method: "POST",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/newplayer`,
@@ -18,14 +18,30 @@ export const createPlayer = (params) => {
       console.log(error.response);
     });
 };
+
 export const getPlayers = async () => {
   return await axios({
-    method: 'GET',
+    method: "GET",
     withCredentials: true,
     url: `${serverUrl}/getplayers`,
   })
     .then((response) => {
       return response.data.players;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
+export const login = async (params) => {
+  return await axios({
+    method: "GET",
+    params: params,
+    withCredentials: true,
+    url: `${serverUrl}/loginplayer`,
+  })
+    .then((response) => {
+      return response.data;
     })
     .catch((error) => {
       return error.response;
