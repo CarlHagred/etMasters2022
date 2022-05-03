@@ -34,6 +34,7 @@ const App = () => {
   routes = (
     <>
       <Routes>
+        <Route exact path ="/playerLogin" element {<PlayerLogin />}/>
         <Route exact path="/users" element={<Users />} />
         <Route
           exact
