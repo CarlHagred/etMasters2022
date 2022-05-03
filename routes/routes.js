@@ -6,6 +6,5 @@ import { postPlayer } from "../controllers/admin/adminEndpoints.js";
 const router = express.Router();
 
 router.post("/newplayer/", postPlayer);
-//:name:password:handicap
 
 export default router;
