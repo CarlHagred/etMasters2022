@@ -95,7 +95,7 @@ export const getListOfPlayedRounds = async (req, res) => {
       populate: { path: 'player', model: 'Player' },
     });
 
-  let scoreList = [];
+  let scoreList = {};
 
   competition.rounds.forEach((round) => {
     if (scoreList.hasOwnProperty(round.player.name)) {
@@ -105,7 +105,11 @@ export const getListOfPlayedRounds = async (req, res) => {
       scoreList[round.player.name] = round.points;
     }
   });
-  scoreList.sort();
+  
+  console.log(scoreList);
+  res.json(scoreList)
+  
+  
 };
 
 export const getTotalScoreForPlayer = async (req, res) => {
