@@ -32,7 +32,7 @@ const App = () => {
   console.log(rounds);
 
   routes = (
-    <React.Fragment>
+    <>
       <Routes>
         <Route exact path="/users" element={<Users />} />
         <Route
@@ -47,7 +47,7 @@ const App = () => {
 
         <Route exact path="/leaderboard" element={<LeaderBoard />} />
       </Routes>
-    </React.Fragment>
+    </>
   );
   return (
     <Router>
