@@ -41,7 +41,7 @@ export const login = async (params) => {
     url: `${serverUrl}/loginplayer`,
   })
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
       return error.response;

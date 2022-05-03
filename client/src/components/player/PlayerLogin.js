@@ -10,11 +10,12 @@ const PlayerLogin = (props) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const postData = {
-      name: name.trim().toLowerCase(),
-      password: password.trim().toLowerCase(),
+      name: name.trim(),
+      password: password.trim(),
     };
     const response = await login(postData);
-    console.log(`${response}`);
+
+    console.log(`${response.data.player.name}`);
   };
 
   return (
