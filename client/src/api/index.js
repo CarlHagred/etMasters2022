@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 
-const serverUrl = "http://localhost:8000/api";
+const serverUrl = 'http://localhost:8000/api';
 
 /* ===== Login calls ===== */
 
 export const createPlayer = (params) => {
   axios({
-    method: "POST",
+    method: 'POST',
     params: params,
     withCredentials: true,
     url: `${serverUrl}/newplayer`,
@@ -21,7 +21,7 @@ export const createPlayer = (params) => {
 
 export const getPlayers = async () => {
   return await axios({
-    method: "GET",
+    method: 'GET',
     withCredentials: true,
     url: `${serverUrl}/getplayers`,
   })
@@ -35,10 +35,25 @@ export const getPlayers = async () => {
 
 export const login = async (params) => {
   return await axios({
-    method: "GET",
+    method: 'GET',
     params: params,
     withCredentials: true,
     url: `${serverUrl}/loginplayer`,
+  })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
+export const loginAdmin = async (params) => {
+  return await axios({
+    method: 'GET',
+    params: params,
+    withCredentials: true,
+    url: `${serverUrl}/loginadmin`,
   })
     .then((response) => {
       return response;
