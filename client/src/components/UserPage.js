@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getCompetitions } from '../api';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getCompetitions } from "../api";
 
 const UserPage = () => {
   const { id } = useParams();
@@ -22,25 +22,37 @@ const UserPage = () => {
     console.log(selectedCompetition);
   }, [selectedCompetition]);
 
+  const registerToCompetition = (e) => {
+    e.preventDefault();
+    const params = {
+      compID: "",
+      playerID: id,
+    };
+    registerToCompetition(params);
+    console.log("first");
+  };
+
   return (
     <>
-      <select
-        multiple={false}
-        value={selectedCompetition}
-        onChange={(e) => setSelectedCompetiton(e.target.value)}
-      >
-        {competitions.map((e, key) => {
-          return (
-            <>
+      <form>
+        <select
+          multiple={false}
+          value={selectedCompetition}
+          onChange={(e) =>
+            setSelectedCompetiton(competitions.includes(e.target.value))
+          }
+        >
+          {competitions.map((e, key) => {
+            return (
               <option key={key} value={e.name}>
                 {e.name}
               </option>
-            </>
-          );
-        })}
-      </select>
-
-      {`Du är inloggad som ${id}`}
+            );
+          })}
+        </select>
+        <button onClick={registerToCompetition}>Register to competition</button>
+      </form>
+      <h1>{`Du är inloggad som ${id}`}</h1>
     </>
   );
 };
