@@ -145,11 +145,5 @@ const UserPage = () => {
     </>
   );
 };
-/*
- points: points,
-        weather: weather,
-        course: course,
-        mood: mood,
-        player: playerId,
-        */
+
 export default UserPage;

@@ -11,13 +11,7 @@ export const postRound = async (req, res) => {
   const playerId = req.query.playerId;
   const competitonId = req.query.compId;
 
-  console.log(competitonId);
-
-  console.log(points);
-  console.log(weather);
-  console.log(course);
-  console.log(mood);
-  console.log(playerId);
+  // const [points, weather, course, mood, playerId, compId] = req.query;
 
   Round.findOne({ course: course }, async (err, doc) => {
     if (err) res.send(err);
