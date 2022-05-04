@@ -62,3 +62,17 @@ export const loginAdmin = async (params) => {
       return error.response;
     });
 };
+
+export const getCompetitions = async () => {
+  return await axios({
+    method: 'GET',
+    withCredentials: true,
+    url: `${serverUrl}/getcompetitions`,
+  })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
