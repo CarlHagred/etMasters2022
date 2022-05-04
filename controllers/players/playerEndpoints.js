@@ -4,16 +4,15 @@ import Competition from '../../models/competition.js';
 import Round from '../../models/round.js';
 
 export const getPlayers = async (req, res) => {
+  let players;
   try {
-    const players = await Player.find();
-    players.forEach((player) => {
-      console.log(player.name, player.handicap);
-    });
-    // console.log(players);
-    // res.status(200).json(players);
+    players = await Player.find();
   } catch (error) {
-    //res.status(404).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
+  res.json({
+    players: players.map((player) => player.toObject({ getters: true })),
+  });
 };
 
 export const registerPlayerToCompetition = async (req, res) => {
@@ -89,7 +88,6 @@ export const getListOfPlayedRounds = async (req, res) => {
   //competition: req.params osv
   const competition = await Competition.findById('626908b9f30bd77383f8f935')
     .populate('players', 'name')
-
     .populate({
       path: 'rounds',
       populate: { path: 'player', model: 'Player' },

@@ -18,3 +18,32 @@ export const createPlayer = (params) => {
       console.log(error.response);
     });
 };
+
+export const getPlayers = async () => {
+  return await axios({
+    method: "GET",
+    withCredentials: true,
+    url: `${serverUrl}/getplayers`,
+  })
+    .then((response) => {
+      return response.data.players;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
+export const login = async (params) => {
+  return await axios({
+    method: "GET",
+    params: params,
+    withCredentials: true,
+    url: `${serverUrl}/loginplayer`,
+  })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};

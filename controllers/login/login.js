@@ -1,19 +1,16 @@
-import mongoose from 'mongoose';
-import Player from '../../models/player.js';
-
+import Player from "../../models/player.js";
 
 export const login = async (req, res) => {
-
-const userName= "gustav"
-const password ="gedenGeden"
-
-Player.findOne({ name: userName, password:password}, async (err, doc) => { 
-    if (err) res.send(err);
+  const name = req.query.name;
+  const password = req.query.password;
+  await Player.findOne({ name: name, password: password }).then((doc, err) => {
     if (doc) {
-        console.log("lyckades logga in");
+      res.json({
+        player: doc,
+      });
     }
-});
-
-
-
-}
+    if (err) {
+      console.log(err);
+    }
+  });
+};

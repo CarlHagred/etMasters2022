@@ -19,6 +19,9 @@ const NavLinks = () => {
     <ul className="nav-links">
       <li>
         <ColorButton variant="contained">
+          <NavLink to="/playerLogin">Player Login</NavLink>
+        </ColorButton>
+        <ColorButton variant="contained">
           <NavLink to="/users">All users</NavLink>
         </ColorButton>
       </li>
