@@ -25,7 +25,7 @@ const UserPage = () => {
   return (
     <>
       <select value={competitions} readOnly multiple={false}>
-        {this.competitions.map((e, key) => {
+        {competitions.map((e, key) => {
           return (
             <option key={key} value={e}>
               {e}
