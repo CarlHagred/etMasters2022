@@ -4,32 +4,38 @@ import { getCompetitions } from '../api';
 
 const UserPage = () => {
   const { id } = useParams();
-  const [competitions, setCompetitions] = useState(['']);
+  const [competitions, setCompetitions] = useState([]);
+  const [selectedCompetition, setSelectedCompetiton] = useState();
 
   useEffect(() => {
     const fetchComp = async () => {
       const comp = await getCompetitions();
       console.log(comp.data);
       const list = comp.data.competitions.map((comp) => comp.name);
-      setCompetitions(list);
+      setCompetitions(comp.data.competitions);
     };
 
     fetchComp();
   }, []);
 
   useEffect(() => {
-    console.log(competitions[0]);
-  }, [competitions]);
+    console.log(selectedCompetition);
+  }, [selectedCompetition]);
 
-  console.log(competitions);
   return (
     <>
-      <select value={competitions} readOnly multiple={false}>
+      <select
+        multiple={false}
+        value={selectedCompetition}
+        onChange={(e) => setSelectedCompetiton(e.target.value)}
+      >
         {competitions.map((e, key) => {
           return (
-            <option key={key} value={e}>
-              {e}
-            </option>
+            <>
+              <option key={key} value={e.name}>
+                {e.name}
+              </option>
+            </>
           );
         })}
       </select>

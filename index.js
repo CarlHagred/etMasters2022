@@ -1,30 +1,30 @@
-import express from "express";
-import dotenv from "dotenv";
-import mongoose from "mongoose";
-import { dirname } from "path";
-import * as path from "path";
-import { fileURLToPath } from "url";
-import morgan from "morgan";
-import routes from "./routes/routes.js";
-import cors from "cors";
+import express from 'express';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import { dirname } from 'path';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+import morgan from 'morgan';
+import routes from './routes/routes.js';
+import cors from 'cors';
 import {
   postPlayer,
   deletePlayer,
   postCompetition,
   changeRoundPoint,
   getSpecificPlayer,
-} from "./controllers/admin/adminEndpoints.js";
+} from './controllers/admin/adminEndpoints.js';
 import {
   getCompetitions,
   deleteRound,
   getCourses,
   getSpecificCompetition,
   getCompetitionRoundsForSpecificPlayer,
-} from "./controllers/shared/sharedEndpoints.js";
+} from './controllers/shared/sharedEndpoints.js';
 import {
   getRoundsPlayed,
   postRound,
-} from "./controllers/players/roundEndPoint.js";
+} from './controllers/players/roundEndPoint.js';
 import {
   changePlayerHandicap,
   getListOfPlayedRounds,
@@ -32,8 +32,8 @@ import {
   getTotalScoreForPlayer,
   registerCompetitionToPlayer,
   registerPlayerToCompetition,
-} from "./controllers/players/playerEndpoints.js";
-import { login } from "./controllers/login/login.js";
+} from './controllers/players/playerEndpoints.js';
+import { login } from './controllers/login/login.js';
 
 dotenv.config();
 
@@ -43,19 +43,19 @@ const __dirname = dirname(__filename);
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: 'http://localhost:3000',
     credentials: true,
   })
 );
 
-app.use(express.static("public")); //osäker om nödvändig
-app.use("/api", routes);
-app.use(morgan("dev"));
+app.use(express.static('public')); //osäker om nödvändig
+app.use('/api', routes);
+app.use(morgan('dev'));
 
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
 const databaseConnection = async () => {
