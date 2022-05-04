@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCompetitions, registerRound, registerToCompetition } from '../api';
+import {
+  changeHandicap,
+  getCompetitions,
+  registerRound,
+  registerToCompetition,
+} from '../api';
 import Card from './UI/Card';
 
 const UserPage = () => {
@@ -12,6 +17,7 @@ const UserPage = () => {
   const [course, setCourse] = useState();
   const [weather, setWeather] = useState();
   const [mood, setMood] = useState();
+  const [handicap, setHandicap] = useState();
 
   useEffect(() => {
     const fetchComp = async () => {
@@ -48,6 +54,15 @@ const UserPage = () => {
     registerRound(params);
   };
 
+  const handleChangeHandicap = (e) => {
+    e.preventDefault();
+
+    const params = {
+      playerId: id,
+      handicap,
+    };
+    changeHandicap(params);
+  };
   return (
     <>
       <h1>{`Du är inloggad som ${id}`}</h1>
@@ -73,6 +88,8 @@ const UserPage = () => {
         <button onClick={handleRegisterToCompetition}>
           Register to competition
         </button>
+
+        {/* HÄR KOMMER REGISTER TO ROUND */}
       </form>
       <Card>
         <form>
@@ -139,6 +156,24 @@ const UserPage = () => {
             type="submit"
             value="Register round"
             onClick={handlePostRound}
+          />
+        </form>
+
+        {/* HÄR KOMMER CHANGE HANDICAP */}
+      </Card>
+      <Card>
+        <form>
+          <input
+            type="number"
+            name="points"
+            onChange={(e) => {
+              setHandicap(e.target.value);
+            }}
+          ></input>
+          <input
+            type="submit"
+            value="Change Handicap"
+            onClick={handleChangeHandicap}
           />
         </form>
       </Card>

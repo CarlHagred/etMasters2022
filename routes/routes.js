@@ -2,6 +2,7 @@ import express from 'express';
 
 import { postPlayer } from '../controllers/admin/adminEndpoints.js';
 import {
+  changePlayerHandicap,
   getPlayers,
   registerPlayerToCompetition,
 } from '../controllers/players/playerEndpoints.js';
@@ -24,5 +25,8 @@ router.get('/getcompetitions', getCompetitions);
 router.post('/registertocompetition', registerPlayerToCompetition);
 
 router.post('/postround', postRound);
+
+//Ska det vara put/alter??
+router.patch('/changehandicap', changePlayerHandicap);
 
 export default router;

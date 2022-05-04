@@ -106,3 +106,18 @@ export const registerRound = (params) => {
       console.log(error.response);
     });
 };
+
+export const changeHandicap = (params) => {
+  axios({
+    method: 'PATCH',
+    params: params,
+    withCredentials: true,
+    url: `${serverUrl}/changehandicap`,
+  })
+    .then((response) => {
+      //console.log(response);
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+};

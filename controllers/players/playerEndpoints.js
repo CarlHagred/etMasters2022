@@ -1,7 +1,7 @@
-import Player from "../../models/player.js";
-import mongoose from "mongoose";
-import Competition from "../../models/competition.js";
-import Round from "../../models/round.js";
+import Player from '../../models/player.js';
+import mongoose from 'mongoose';
+import Competition from '../../models/competition.js';
+import Round from '../../models/round.js';
 
 export const getPlayers = async (req, res) => {
   let players;
@@ -48,12 +48,6 @@ export const registerCompetitionToPlayer = async (req) => {
     //if (err) res.send(err);
     if (!doc) {
       const player = await Player.findById(playerID);
-
-      try {
-        //competition = await Competition.findById('6268dee44da1bf35c03268fa');
-      } catch (err) {
-        // res.status(404).json({ message: error.message });
-      }
       try {
         const sess = await mongoose.startSession();
         sess.startTransaction();
@@ -68,10 +62,10 @@ export const registerCompetitionToPlayer = async (req) => {
 };
 
 export const changePlayerHandicap = async (req, res) => {
-  const playerName = "gustav"; //req.params.playerName;
-  const handicap = 20; //req.params.handicap;
+  const playerId = req.query.playerId;
+  const handicap = req.query.handicap;
   Player.findOneAndUpdate(
-    { name: playerName },
+    { _id: playerId },
     { $set: { handicap: handicap } },
     { new: true },
     (err, doc) => {
@@ -84,11 +78,11 @@ export const changePlayerHandicap = async (req, res) => {
 
 export const getListOfPlayedRounds = async (req, res) => {
   //competition: req.params osv
-  const competition = await Competition.findById("626908b9f30bd77383f8f935")
-    .populate("players", "name")
+  const competition = await Competition.findById('626908b9f30bd77383f8f935')
+    .populate('players', 'name')
     .populate({
-      path: "rounds",
-      populate: { path: "player", model: "Player" },
+      path: 'rounds',
+      populate: { path: 'player', model: 'Player' },
     });
 
   let scoreList = [];
@@ -105,12 +99,12 @@ export const getListOfPlayedRounds = async (req, res) => {
 };
 
 export const getTotalScoreForPlayer = async (req, res) => {
-  const playerName = "Jucke";
-  const competition = await Competition.findById("626908b9f30bd77383f8f935")
-    .populate("players", "name")
+  const playerName = 'Jucke';
+  const competition = await Competition.findById('626908b9f30bd77383f8f935')
+    .populate('players', 'name')
     .populate({
-      path: "rounds",
-      populate: { path: "player", model: "Player" },
+      path: 'rounds',
+      populate: { path: 'player', model: 'Player' },
     });
   let totalScore = [];
 
