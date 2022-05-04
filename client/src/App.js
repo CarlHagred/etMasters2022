@@ -6,6 +6,7 @@ import Users from "./components/Users";
 import "./App.css";
 import RoundList from "./components/RoundList";
 import PlayerLogin from "./components/player/PlayerLogin";
+import UserPage from "./components/UserPage";
 
 const App = () => {
   let routes;
@@ -36,6 +37,7 @@ const App = () => {
     <>
       <Routes>
         <Route exact path="/playerLogin" element={<PlayerLogin />} />
+        <Route exact path="/user/:id" element={<UserPage />} />
         <Route exact path="/users" element={<Users />} />
         <Route
           exact

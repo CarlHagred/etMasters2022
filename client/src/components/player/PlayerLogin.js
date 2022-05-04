@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import Card from "../../components/UI/Card";
 import { login } from "../../api";
 
-const PlayerLogin = (props) => {
+const PlayerLogin = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,14 +14,16 @@ const PlayerLogin = (props) => {
       name: name.trim(),
       password: password.trim(),
     };
+
     const response = await login(postData);
 
     if (
       response.data.player.name === name &&
       response.data.player.password === password
     ) {
+      console.log(response.data.player);
       //skicka med id : /users?title=${ response.data.player_id}
-      window.location.href = `/users`;
+      window.location.href = `/user/${response.data.player._id.toString()}`;
     }
   };
 
