@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCompetitions } from "../api";
+import { getCompetitions, registerToCompetition } from "../api";
 
 const UserPage = () => {
   const { id } = useParams();
   const [competitions, setCompetitions] = useState([]);
-  const [selectedCompetition, setSelectedCompetiton] = useState();
+  const [selectedCompetition, setSelectedCompetiton] = useState({});
 
   useEffect(() => {
     const fetchComp = async () => {
@@ -18,18 +18,13 @@ const UserPage = () => {
     fetchComp();
   }, []);
 
-  useEffect(() => {
-    console.log(selectedCompetition);
-  }, [selectedCompetition]);
-
-  const registerToCompetition = (e) => {
+  const handleRegisterToCompetition = (e) => {
     e.preventDefault();
     const params = {
-      compID: "",
+      compID: selectedCompetition._id,
       playerID: id,
     };
     registerToCompetition(params);
-    console.log("first");
   };
 
   return (
@@ -37,9 +32,11 @@ const UserPage = () => {
       <form>
         <select
           multiple={false}
-          value={selectedCompetition}
+          value={selectedCompetition.name}
           onChange={(e) =>
-            setSelectedCompetiton(competitions.includes(e.target.value))
+            setSelectedCompetiton(
+              competitions.find((element) => element.name === e.target.value)
+            )
           }
         >
           {competitions.map((e, key) => {
@@ -50,7 +47,9 @@ const UserPage = () => {
             );
           })}
         </select>
-        <button onClick={registerToCompetition}>Register to competition</button>
+        <button onClick={handleRegisterToCompetition}>
+          Register to competition
+        </button>
       </form>
       <h1>{`Du är inloggad som ${id}`}</h1>
     </>
