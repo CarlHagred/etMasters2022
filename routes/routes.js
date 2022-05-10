@@ -1,5 +1,9 @@
 import express from 'express';
 
+import { getListOfPlayedRounds } from "../controllers/players/playerEndpoints.js";
+//import { login } from '../controllers/login/login.js';
+
+
 import { postPlayer } from '../controllers/admin/adminEndpoints.js';
 import {
   changePlayerHandicap,
@@ -15,7 +19,9 @@ const router = express.Router();
 
 router.post('/newplayer/', postPlayer);
 
-router.get('/getplayers/', getPlayers);
+router.get("/getLeaderboard/", getListOfPlayedRounds);
+
+router.get("/getplayers/", getPlayers);
 
 router.get('/loginplayer/', login);
 
