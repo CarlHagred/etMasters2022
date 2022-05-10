@@ -22,7 +22,6 @@ const PlayerLogin = () => {
       response.data.player.password === password
     ) {
       console.log(response.data.player);
-      //skicka med id : /users?title=${ response.data.player_id}
       window.location.href = `/user/${response.data.player._id.toString()}`;
     }
   };
