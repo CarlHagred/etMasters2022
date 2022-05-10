@@ -47,3 +47,20 @@ export const login = async (params) => {
       return error.response;
     });
 };
+
+
+//inte LOGIN CALLS, omfg
+export const getRoundsNPlayers = async (params) => {
+  return await axios({
+    method: "GET",
+    params: params,
+    withCredentials: true,
+    url: `${serverUrl}/getLeaderboard`,
+  })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
