@@ -121,3 +121,18 @@ export const changeHandicap = (params) => {
       console.log(error.response);
     });
 };
+
+export const getPlayerRounds = async (params) => {
+  return await axios({
+    method: 'GET',
+    params: params,
+    withCredentials: true,
+    url: `${serverUrl}/getplayerrounds`,
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};

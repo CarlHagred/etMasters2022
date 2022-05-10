@@ -4,6 +4,7 @@ import { postPlayer } from '../controllers/admin/adminEndpoints.js';
 import {
   changePlayerHandicap,
   getPlayers,
+  getRoundsPlayedPerPlayer,
   registerPlayerToCompetition,
 } from '../controllers/players/playerEndpoints.js';
 import { login, loginAdmin } from '../controllers/login/login.js';
@@ -21,6 +22,8 @@ router.get('/loginplayer/', login);
 router.get('/loginadmin', loginAdmin);
 
 router.get('/getcompetitions', getCompetitions);
+
+router.get('/getplayerrounds', getRoundsPlayedPerPlayer);
 
 router.post('/registertocompetition', registerPlayerToCompetition);
 

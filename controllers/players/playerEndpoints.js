@@ -125,3 +125,47 @@ export const getTotalScoreForPlayer = async (req, res) => {
   });
   console.log(totalScore);
 };
+
+export const getRoundsPlayedPerPlayer = async (req, res) => {
+  const compID = req.query.compId;
+  const playerID = req.query.playerID;
+  const player = await Player.findById(playerID);
+  const competition = await Competition.findById(compID)
+    .populate('players', 'name')
+    .populate({
+      path: 'rounds',
+      populate: { path: 'player', model: 'Player' },
+    });
+
+  console.log(player.name);
+
+  let roundsPerPlayer = [];
+  competition.rounds.forEach((round) => {
+    if (player.name === round.player.name) {
+      roundsPerPlayer.push(round);
+    }
+  });
+
+  res.json({
+    rounds: roundsPerPlayer,
+  });
+
+  // let totalScore = [];
+
+  // competition.rounds.forEach((round) => {
+  //   //console.log(round.player._id.toString());
+  //   if (playerName === round.player.name) {
+  //     if (totalScore.hasOwnProperty(round.player.name)) {
+  //       totalScore[round.player.name] =
+  //         totalScore[round.player.name] + round.points;
+  //     } else {
+  //       totalScore[round.player.name] = round.points;
+  //     }
+  //   } else {
+  //     /* return res.status(404).send({
+  //       message: "Player not found with name: " + playerName,
+  //     });*/
+  //   }
+  // });
+  //console.log(totalScore);
+};

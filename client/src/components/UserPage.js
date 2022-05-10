@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import {
   changeHandicap,
   getCompetitions,
+  getPlayerRounds,
   registerRound,
   registerToCompetition,
 } from '../api';
@@ -18,6 +19,8 @@ const UserPage = () => {
   const [weather, setWeather] = useState();
   const [mood, setMood] = useState();
   const [handicap, setHandicap] = useState();
+
+  const [playerRounds, setPlayerRounds] = useState([]);
 
   useEffect(() => {
     const fetchComp = async () => {
@@ -63,6 +66,20 @@ const UserPage = () => {
     };
     changeHandicap(params);
   };
+
+  console.log(selectedCompetition._id);
+  const handleGetRounds = async (e) => {
+    const params = {
+      compId: selectedCompetition._id,
+      playerID: id,
+    };
+    const rounds = await getPlayerRounds(params);
+    setPlayerRounds(rounds.rounds);
+
+    console.log(rounds);
+  };
+  console.log(playerRounds);
+
   return (
     <>
       <h1>{`Du är inloggad som ${id}`}</h1>
@@ -176,6 +193,18 @@ const UserPage = () => {
             onClick={handleChangeHandicap}
           />
         </form>
+      </Card>
+      <Card>
+        <button type="submit" onClick={handleGetRounds}>
+          Get rounds
+        </button>
+        <ul>
+          {playerRounds.map((round) => (
+            <li key={round._id}>
+              {round.course} <button>Ta bort</button>
+            </li>
+          ))}
+        </ul>
       </Card>
     </>
   );
