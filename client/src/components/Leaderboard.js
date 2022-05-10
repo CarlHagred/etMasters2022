@@ -36,7 +36,8 @@ const LeaderBoard = () => {
       {playerName.map((playerName,index)=>{
       return(
         <tr key={index}>
-          <td>{playerName}</td>
+          <td>{playerName[0]}</td>
+          <td>{playerName[1]}</td>
 
         </tr>
       )  
