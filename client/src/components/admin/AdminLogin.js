@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Card from '../../components/UI/Card';
-import { loginAdmin } from '../../api';
+import Card from "../../components/UI/Card";
+import { loginAdmin } from "../../api";
 
 const AdminLogin = (props) => {
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -15,14 +15,14 @@ const AdminLogin = (props) => {
     };
     const response = await loginAdmin(postData);
 
-    console.log(response.data.admin);
-    // if (
-    //   response.data.player.name === name &&
-    //   response.data.player.password === password
-    // ) {
-    //   //skicka med id : /users?title=${ response.data.player_id}
-    //   window.location.href = `/users`;
-    // }
+    if (
+      response.data.admin.name === name &&
+      response.data.admin.password === password
+    ) {
+      console.log(response.data.player);
+      //skicka med id : /users?title=${ response.data.player_id}
+      window.location.href = `/admin/${response.data.admin._id.toString()}`;
+    }
   };
 
   return (

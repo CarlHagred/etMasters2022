@@ -7,6 +7,7 @@ import "./App.css";
 import RoundList from "./components/RoundList";
 import PlayerLogin from "./components/player/PlayerLogin";
 import UserPage from "./components/UserPage";
+import AdminPage from "./components/admin/AdminPage";
 import AdminLogin from "./components/admin/AdminLogin";
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
         <Route exact path="/adminlogin" element={<AdminLogin />} />
         <Route exact path="/playerLogin" element={<PlayerLogin />} />
         <Route exact path="/user/:id" element={<UserPage />} />
+        <Route exact path="/admin/:id" element={<AdminPage />} />
         <Route exact path="/users" element={<Users />} />
         <Route
           exact
@@ -50,7 +52,6 @@ const App = () => {
             </React.Fragment>
           }
         />
-
         <Route exact path="/leaderboard" element={<LeaderBoard />} />
       </Routes>
     </>
