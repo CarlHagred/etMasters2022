@@ -1,16 +1,23 @@
-import Competition from "../../models/competition.js";
-import Course from "../../models/course.js";
-import Round from "../../models/round.js";
+import Competition from '../../models/competition.js';
+import Course from '../../models/course.js';
+import Round from '../../models/round.js';
 
 export const getCompetitions = async (req, res) => {
-  const competition = await Competition.find();
-  competition.forEach((comp) => {
-    console.log(comp.name);
+  let competition;
+  try {
+    competition = await Competition.find();
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+  res.json({
+    competitions: competition.map((compet) =>
+      compet.toObject({ getters: true })
+    ),
   });
 };
 
 export const getSpecificCompetition = async (req, res) => {
-  const competition = await Competition.findById("626908b9f30bd77383f8f935");
+  const competition = await Competition.findById('626908b9f30bd77383f8f935');
   console.log(competition.name);
 };
 
@@ -24,8 +31,8 @@ export const getCourses = async (req, res) => {
 };
 
 export const deleteRound = async (req, res) => {
-  const roundId = "6269090804f278b9065548c1"; //req.body.roundId;
-  const competitionId = "626908b9f30bd77383f8f935"; //req.body.competitionId;
+  const roundId = '6269090804f278b9065548c1'; //req.body.roundId;
+  const competitionId = '626908b9f30bd77383f8f935'; //req.body.competitionId;
 
   await Round.deleteOne({ _id: roundId }).then((round) => {
     if (!round) {
@@ -43,13 +50,13 @@ export const deleteRound = async (req, res) => {
 };
 
 export const getCompetitionRoundsForSpecificPlayer = async (req, res) => {
-  const competitionID = "626908b9f30bd77383f8f935"; //req.body.competitionID;
-  const playerID = "6267baede7c6e6b3c324c7b2"; //req.body.playerID;
+  const competitionID = '626908b9f30bd77383f8f935'; //req.body.competitionID;
+  const playerID = '6267baede7c6e6b3c324c7b2'; //req.body.playerID;
   const playerRounds = [];
 
   const competition = await Competition.findById(competitionID)
-    .populate("players")
-    .populate("rounds");
+    .populate('players')
+    .populate('rounds');
 
   competition.rounds.forEach((round) => {
     if (playerID === round.player._id.toString()) {

@@ -19,8 +19,15 @@ const NavLinks = () => {
     <ul className="nav-links">
       <li>
         <ColorButton variant="contained">
+          <NavLink to="/adminlogin">Admin Login</NavLink>
+        </ColorButton>
+      </li>
+      <li>
+        <ColorButton variant="contained">
           <NavLink to="/playerLogin">Player Login</NavLink>
         </ColorButton>
+      </li>
+      <li>
         <ColorButton variant="contained">
           <NavLink to="/users">All users</NavLink>
         </ColorButton>

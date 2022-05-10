@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from 'react';
 
-import Card from "../../components/UI/Card";
-import { login } from "../../api";
+import Card from '../../components/UI/Card';
+import { loginAdmin } from '../../api';
 
-const PlayerLogin = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+const AdminLogin = (props) => {
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,17 +13,16 @@ const PlayerLogin = () => {
       name: name.trim(),
       password: password.trim(),
     };
+    const response = await loginAdmin(postData);
 
-    const response = await login(postData);
-
-    if (
-      response.data.player.name === name &&
-      response.data.player.password === password
-    ) {
-      console.log(response.data.player);
-      //skicka med id : /users?title=${ response.data.player_id}
-      window.location.href = `/user/${response.data.player._id.toString()}`;
-    }
+    console.log(response.data.admin);
+    // if (
+    //   response.data.player.name === name &&
+    //   response.data.player.password === password
+    // ) {
+    //   //skicka med id : /users?title=${ response.data.player_id}
+    //   window.location.href = `/users`;
+    // }
   };
 
   return (
@@ -58,4 +56,4 @@ const PlayerLogin = () => {
   );
 };
 
-export default PlayerLogin;
+export default AdminLogin;

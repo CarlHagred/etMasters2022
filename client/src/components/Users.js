@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { createPlayer, getPlayers } from "../api";
 import Card from "../components/UI/Card";
