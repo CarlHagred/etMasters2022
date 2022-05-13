@@ -78,7 +78,8 @@ export const changePlayerHandicap = async (req, res) => {
 
 export const getListOfPlayedRounds = async (req, res) => {
   //competition: req.params osv
-  const competition = await Competition.findById('626908b9f30bd77383f8f935')
+  const compId = req.query.compId;
+  const competition = await Competition.findById(compId)
     .populate('players', 'name')
     .populate({
       path: 'rounds',
@@ -96,7 +97,7 @@ export const getListOfPlayedRounds = async (req, res) => {
     }
   });
 
-  console.log(scoreList);
+  //Här kan vi få in mer data för att göra leaderboarden mer spännande
   res.json(scoreList);
 };
 

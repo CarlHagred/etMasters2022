@@ -1,53 +1,81 @@
+import React, { useEffect, useState } from 'react';
+import { getCompetitions, getRoundsNPlayers } from '../api';
 
-import React, { useEffect, useState } from "react";
-import {getRoundsNPlayers} from "../api";
+import './Leaderboard.css';
 
 const LeaderBoard = () => {
-  const [rounds, setRounds]= useState({
-  });
-  const [playerName, setPlayers]=useState([]);
+  const [playerNames, setPlayerNames] = useState([]);
+  const [competitions, setCompetitions] = useState([]);
+  const [selectedCompetiton, setSelectedCompetition] = useState([]);
+  useEffect(() => {
+    const fetchComp = async () => {
+      const comp = await getCompetitions();
+      setCompetitions(comp.data.competitions);
+    };
 
-  useEffect(()=>{
-    handleGetPlayers()
-  },[])
-  useEffect(()=>{
-    console.log(playerName);
-  },[playerName])
+    fetchComp();
+  }, []);
 
-  const handleGetPlayers = async () => {
-    const PlayersNROunds = await getRoundsNPlayers();
-    JSON.stringify(PlayersNROunds.data);
-    const result = Object.keys(PlayersNROunds.data).map((key) => [key, PlayersNROunds.data[key]]);
-    console.log(result);
-    setPlayers(result);
-    
-    
+  const handleGetLeaderBoard = async (e) => {
+    e.preventDefault();
+    const params = {
+      compId: selectedCompetiton._id,
+    };
+    const leaderBoardData = await getRoundsNPlayers(params);
+    console.log(leaderBoardData);
+    JSON.stringify(leaderBoardData.data);
+    const result = Object.keys(leaderBoardData.data).map((key) => [
+      key,
+      leaderBoardData.data[key],
+    ]);
+    setPlayerNames(result);
   };
+  console.log(selectedCompetiton);
   return (
     <React.Fragment>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Rounds</th>
-      </tr>
-    </thead>
-    <tbody>
-      {playerName.map((playerName,index)=>{
-      return(
-        <tr key={index}>
-          <td>{playerName[0]}</td>
-          <td>{playerName[1]}</td>
-
-        </tr>
-      )  
-      })}
-     <td>Tjena</td>
-      
-    </tbody>
-  </table>
-  </React.Fragment>
-  )
+      <form>
+        <select
+          multiple={false}
+          value={selectedCompetiton.name}
+          onChange={(e) =>
+            setSelectedCompetition(
+              competitions.find((element) => element.name === e.target.value)
+            )
+          }
+        >
+          <option>Select Competition</option>
+          {competitions.map((e, key) => {
+            return (
+              <option key={key} value={e.name}>
+                {e.name}
+              </option>
+            );
+          })}
+        </select>
+        <button onClick={handleGetLeaderBoard}>
+          Get leaderboard for competition
+        </button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {playerNames.map((playerName, index) => {
+            return (
+              <tr key={index}>
+                <td>{playerName[0]}</td>
+                <td>{playerName[1]}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </React.Fragment>
+  );
 };
 
 export default LeaderBoard;

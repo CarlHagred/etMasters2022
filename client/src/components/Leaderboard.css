@@ -1,0 +1,22 @@
+.content-table{
+    padding: 0 50px 0 50px;
+    width: 100%;
+    border:1px solid white;
+    font-family:'Acme', sans-serif ;
+    
+}
+.content-table, th{
+    padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+    border:1px solid white
+    
+}
+.content-table, td{
+    background-color: white;
+    border:1px solid white;
+    color:black
+    
+} 

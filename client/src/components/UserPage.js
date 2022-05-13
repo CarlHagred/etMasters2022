@@ -13,7 +13,9 @@ import Card from './UI/Card';
 const UserPage = () => {
   const { id } = useParams();
   const [competitions, setCompetitions] = useState([]);
-  const [selectedCompetition, setSelectedCompetiton] = useState({});
+  const [selectedRegComp, setSelectedRegComp] = useState({});
+  const [selectedGetComp, setSelectedGetComp] = useState({});
+  const [selectedRegRound, setSelectedRegRound] = useState({});
 
   const [points, setPoints] = useState();
   const [course, setCourse] = useState();
@@ -37,7 +39,7 @@ const UserPage = () => {
   const handleRegisterToCompetition = (e) => {
     e.preventDefault();
     const params = {
-      compID: selectedCompetition._id,
+      compID: selectedRegComp._id,
       playerID: id,
     };
     registerToCompetition(params);
@@ -52,12 +54,12 @@ const UserPage = () => {
       weather: weather,
       mood: mood,
       playerId: id,
-      compId: selectedCompetition._id,
+      compId: selectedRegRound._id,
     };
 
     registerRound(params);
-    await handleGetRounds();
   };
+  console.log(selectedGetComp);
 
   const handleChangeHandicap = (e) => {
     e.preventDefault();
@@ -70,17 +72,20 @@ const UserPage = () => {
   };
 
   const handleGetRounds = async (e) => {
+    e.preventDefault();
     const params = {
-      compId: selectedCompetition._id,
+      compId: selectedGetComp._id,
       playerID: id,
     };
     const rounds = await getPlayerRounds(params);
     setPlayerRounds(rounds.rounds);
   };
 
-  const handleRemoveRound = (roundId) => {
+  //Check what happens when we remove a round, why it doesnt work to rerender
+  const handleRemoveRound = (event, roundId) => {
+    event.preventDefault();
     const params = {
-      compID: selectedCompetition._id,
+      compID: selectedGetComp._id,
       roundId: roundId,
     };
     deleteRound(params);
@@ -94,9 +99,9 @@ const UserPage = () => {
       <form>
         <select
           multiple={false}
-          value={selectedCompetition.name}
+          value={selectedRegComp.name}
           onChange={(e) =>
-            setSelectedCompetiton(
+            setSelectedRegComp(
               competitions.find((element) => element.name === e.target.value)
             )
           }
@@ -161,9 +166,9 @@ const UserPage = () => {
           {/* Fusk programmerat, kolla på alternativ lösning, om tid finns */}
           <select
             multiple={false}
-            value={selectedCompetition.name}
+            value={selectedRegRound.name}
             onChange={(e) =>
-              setSelectedCompetiton(
+              setSelectedRegRound(
                 competitions.find((element) => element.name === e.target.value)
               )
             }
@@ -202,24 +207,43 @@ const UserPage = () => {
         </form>
       </Card>
       <Card>
-        <button type="submit" onClick={handleGetRounds}>
-          Get rounds
-        </button>
-        <ul>
-          {playerRounds.map((round) => (
-            <li key={round._id}>
-              {round.course}
-              {round.points}
-              <button
-                onClick={() => {
-                  handleRemoveRound(round._id);
-                }}
-              >
-                Ta bort
-              </button>
-            </li>
-          ))}
-        </ul>
+        <form>
+          <select
+            multiple={false}
+            value={selectedGetComp.name}
+            onChange={(e) =>
+              setSelectedGetComp(
+                competitions.find((element) => element.name === e.target.value)
+              )
+            }
+          >
+            {competitions.map((e, key) => {
+              return (
+                <option key={key} value={e.name}>
+                  {e.name}
+                </option>
+              );
+            })}
+          </select>
+          <button type="submit" onClick={handleGetRounds}>
+            Get rounds
+          </button>
+          <ul>
+            {playerRounds.map((round) => (
+              <li key={round._id}>
+                {round.course}
+                {round.points}
+                <button
+                  onClick={(e) => {
+                    handleRemoveRound(e, round._id);
+                  }}
+                >
+                  Ta bort
+                </button>
+              </li>
+            ))}
+          </ul>
+        </form>
       </Card>
     </>
   );
