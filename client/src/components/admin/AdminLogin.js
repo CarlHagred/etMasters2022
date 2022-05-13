@@ -20,7 +20,6 @@ const AdminLogin = (props) => {
       response.data.admin.password === password
     ) {
       console.log(response.data.player);
-      //skicka med id : /users?title=${ response.data.player_id}
       window.location.href = `/admin/${response.data.admin._id.toString()}`;
     }
   };
