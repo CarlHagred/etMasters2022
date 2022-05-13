@@ -121,6 +121,21 @@ export const registerRound = (params) => {
     });
 };
 
+export const deleteRound = (params) => {
+  axios({
+    method: 'POST',
+    params: params,
+    withCredentials: true,
+    url: `${serverUrl}/deleteround`,
+  })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+};
+
 export const changeHandicap = (params) => {
   axios({
     method: 'PATCH',

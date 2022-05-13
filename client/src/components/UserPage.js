@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   changeHandicap,
+  deleteRound,
   getCompetitions,
   getPlayerRounds,
   registerRound,
@@ -42,7 +43,7 @@ const UserPage = () => {
     registerToCompetition(params);
   };
 
-  const handlePostRound = (e) => {
+  const handlePostRound = async (e) => {
     e.preventDefault();
 
     const params = {
@@ -55,6 +56,7 @@ const UserPage = () => {
     };
 
     registerRound(params);
+    await handleGetRounds();
   };
 
   const handleChangeHandicap = (e) => {
@@ -67,7 +69,6 @@ const UserPage = () => {
     changeHandicap(params);
   };
 
-  console.log(selectedCompetition._id);
   const handleGetRounds = async (e) => {
     const params = {
       compId: selectedCompetition._id,
@@ -75,10 +76,16 @@ const UserPage = () => {
     };
     const rounds = await getPlayerRounds(params);
     setPlayerRounds(rounds.rounds);
-
-    console.log(rounds);
   };
-  console.log(playerRounds);
+
+  const handleRemoveRound = (roundId) => {
+    const params = {
+      compID: selectedCompetition._id,
+      roundId: roundId,
+    };
+    deleteRound(params);
+    handleGetRounds();
+  };
 
   return (
     <>
@@ -201,7 +208,15 @@ const UserPage = () => {
         <ul>
           {playerRounds.map((round) => (
             <li key={round._id}>
-              {round.course} <button>Ta bort</button>
+              {round.course}
+              {round.points}
+              <button
+                onClick={() => {
+                  handleRemoveRound(round._id);
+                }}
+              >
+                Ta bort
+              </button>
             </li>
           ))}
         </ul>

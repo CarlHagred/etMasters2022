@@ -95,11 +95,9 @@ export const getListOfPlayedRounds = async (req, res) => {
       scoreList[round.player.name] = round.points;
     }
   });
-  
+
   console.log(scoreList);
-  res.json(scoreList)
-  
-  
+  res.json(scoreList);
 };
 
 export const getTotalScoreForPlayer = async (req, res) => {

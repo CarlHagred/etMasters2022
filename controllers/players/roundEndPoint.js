@@ -57,12 +57,12 @@ export const getRoundsPlayed = async (req, res) => {
   const course = 'bögbanan';
   //const playerId="hej"
   Round.find({ player: playerId }, async (err, doc) => {
-    console.log(doc);
+    //console.log(doc);
     if (doc) {
       for (let i = 0; i < doc.length; i++) {
         nbrOfRounds += 1;
       }
-      console.log(nbrOfRounds);
+      //console.log(nbrOfRounds);
     }
   });
   res = nbrOfRounds;
