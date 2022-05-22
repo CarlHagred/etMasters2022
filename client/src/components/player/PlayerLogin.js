@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import Card from "../../components/UI/Card";
-import { login } from "../../api";
+import Card from '../../components/UI/Card';
+import { login } from '../../api';
+import { Button, Input } from '../../styles';
 
 const PlayerLogin = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,27 +31,41 @@ const PlayerLogin = () => {
     <>
       <Card>
         <form>
-          <label>
-            Name:
-            <input
+          <div class="form-group mb-6">
+            <label
+              for="exampleInputEmail2"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Name
+            </label>
+            <Input
               type="text"
               name="name"
+              placeholder="Enter name"
               onChange={(e) => {
                 setName(e.target.value);
               }}
             />
-          </label>
-          <label>
-            password:
-            <input
+          </div>
+          <div class="form-group mb-6">
+            <label
+              for="exampleInputEmail2"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Password
+            </label>
+            <Input
+              placeholder="Enter password"
               type="password"
               name="password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
-          </label>
-          <input type="submit" value="login" onClick={handleLogin} />
+          </div>
+          <Button type="submit" onClick={handleLogin}>
+            Login
+          </Button>
         </form>
       </Card>
     </>

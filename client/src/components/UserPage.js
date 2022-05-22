@@ -8,6 +8,7 @@ import {
   registerRound,
   registerToCompetition,
 } from '../api';
+import { Button, Input, Select } from '../styles';
 import Card from './UI/Card';
 
 const UserPage = () => {
@@ -91,40 +92,43 @@ const UserPage = () => {
     deleteRound(params);
     handleGetRounds();
   };
+  console.log(playerRounds);
 
   return (
     <>
       <h1>{`Du är inloggad som ${id}`}</h1>
-
-      <form>
-        <select
-          multiple={false}
-          value={selectedRegComp.name}
-          onChange={(e) =>
-            setSelectedRegComp(
-              competitions.find((element) => element.name === e.target.value)
-            )
-          }
-        >
-          {competitions.map((e, key) => {
-            return (
-              <option key={key} value={e.name}>
-                {e.name}
-              </option>
-            );
-          })}
-        </select>
-        <button onClick={handleRegisterToCompetition}>
-          Register to competition
-        </button>
-
-        {/* HÄR KOMMER REGISTER TO ROUND */}
-      </form>
       <Card>
         <form>
-          <label>
+          <Select
+            multiple={false}
+            value={selectedRegComp.name}
+            onChange={(e) =>
+              setSelectedRegComp(
+                competitions.find((element) => element.name === e.target.value)
+              )
+            }
+          >
+            {competitions.map((e, key) => {
+              return (
+                <option key={key} value={e.name}>
+                  {e.name}
+                </option>
+              );
+            })}
+            <option>Select Competition</option>
+          </Select>
+          <Button onClick={handleRegisterToCompetition}>
+            Register to competition
+          </Button>
+
+          {/* HÄR KOMMER REGISTER TO ROUND */}
+        </form>
+      </Card>
+      <Card>
+        <form>
+          <label class="form-label inline-block mb-2 text-gray-700">
             Points:
-            <input
+            <Input
               type="number"
               name="points"
               onChange={(e) => {
@@ -132,10 +136,10 @@ const UserPage = () => {
               }}
             />
           </label>
-          <label>
+          <label class="form-label inline-block mb-2 text-gray-700">
             {/* ska egentligen vara SELECT */}
             Course:
-            <input
+            <Input
               type="text"
               name="course"
               onChange={(e) => {
@@ -143,9 +147,9 @@ const UserPage = () => {
               }}
             />
           </label>
-          <label>
+          <label class="form-label inline-block mb-2 text-gray-700">
             Weather:
-            <input
+            <Input
               type="text"
               name="weather"
               onChange={(e) => {
@@ -153,9 +157,9 @@ const UserPage = () => {
               }}
             />
           </label>
-          <label>
+          <label class="form-label inline-block mb-2 text-gray-700">
             Mood:
-            <input
+            <Input
               type="text"
               name="mood"
               onChange={(e) => {
@@ -164,7 +168,7 @@ const UserPage = () => {
             />
           </label>
           {/* Fusk programmerat, kolla på alternativ lösning, om tid finns */}
-          <select
+          <Select
             multiple={false}
             value={selectedRegRound.name}
             onChange={(e) =>
@@ -180,35 +184,31 @@ const UserPage = () => {
                 </option>
               );
             })}
-          </select>
-          <input
-            type="submit"
-            value="Register round"
-            onClick={handlePostRound}
-          />
+            <option>Select Competition</option>
+          </Select>
+          <Button onClick={handlePostRound}> Register round </Button>
         </form>
 
         {/* HÄR KOMMER CHANGE HANDICAP */}
       </Card>
       <Card>
         <form>
-          <input
+          <label class="form-label inline-block mb-2 text-gray-700">
+            Submit new handicap
+          </label>
+          <Input
             type="number"
             name="points"
             onChange={(e) => {
               setHandicap(e.target.value);
             }}
-          ></input>
-          <input
-            type="submit"
-            value="Change Handicap"
-            onClick={handleChangeHandicap}
-          />
+          ></Input>
+          <Button onClick={handleChangeHandicap}>Change Handicap</Button>
         </form>
       </Card>
       <Card>
         <form>
-          <select
+          <Select
             multiple={false}
             value={selectedGetComp.name}
             onChange={(e) =>
@@ -224,25 +224,28 @@ const UserPage = () => {
                 </option>
               );
             })}
-          </select>
-          <button type="submit" onClick={handleGetRounds}>
+            <option>Select Competition</option>
+          </Select>
+          <Button type="submit" onClick={handleGetRounds}>
             Get rounds
-          </button>
-          <ul>
-            {playerRounds.map((round) => (
-              <li key={round._id}>
-                {round.course}
-                {round.points}
-                <button
-                  onClick={(e) => {
-                    handleRemoveRound(e, round._id);
-                  }}
-                >
-                  Ta bort
-                </button>
-              </li>
-            ))}
-          </ul>
+          </Button>
+          <div class="w-1/3 bg-white rounded-lg shadow">
+            <ul class="divide-y-2 divide-gray-100 text-gray-700">
+              {playerRounds.map((round) => (
+                <li class="p-3" key={round._id}>
+                  Course: {round.course} | Points: {round.points} | Weather:
+                  {round.weather} | Mood: {round.mood}
+                  <Button
+                    onClick={(e) => {
+                      handleRemoveRound(e, round._id);
+                    }}
+                  >
+                    Remove
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </form>
       </Card>
     </>

@@ -70,7 +70,7 @@ export const changePlayerHandicap = async (req, res) => {
     { new: true },
     (err, doc) => {
       if (doc) {
-        //res.status(200).send("Success");
+        res.status(200).send('Success');
       }
     }
   );
@@ -79,12 +79,22 @@ export const changePlayerHandicap = async (req, res) => {
 export const getListOfPlayedRounds = async (req, res) => {
   //competition: req.params osv
   const compId = req.query.compId;
+  // console.log(compId);
+
+  // const comp = await Competition.findById(compId).aggregate([
+  //   { $match: { _id: compId } },
+  // ]);
+  // console.log(comp);
   const competition = await Competition.findById(compId)
     .populate('players', 'name')
     .populate({
       path: 'rounds',
       populate: { path: 'player', model: 'Player' },
     });
+
+  //competition.aggregate([{ $match: {} }, { $group: { _id: '$player' } }]);
+
+  console.log(competition);
 
   let scoreList = {};
 
@@ -97,7 +107,7 @@ export const getListOfPlayedRounds = async (req, res) => {
     }
   });
 
-  //Här kan vi få in mer data för att göra leaderboarden mer spännande
+  // Här kan vi få in mer data för att göra leaderboarden mer spännande
   res.json(scoreList);
 };
 
