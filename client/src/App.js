@@ -9,6 +9,10 @@ import PlayerLogin from "./components/player/PlayerLogin";
 import UserPage from "./components/UserPage";
 import AdminPage from "./components/admin/AdminPage";
 import AdminLogin from "./components/admin/AdminLogin";
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 const App = () => {
   let routes;

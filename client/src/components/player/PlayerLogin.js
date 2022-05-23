@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import {toast} from "react-toastify";
 
 import Card from '../../components/UI/Card';
 import { login } from '../../api';
@@ -11,20 +12,27 @@ const PlayerLogin = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    try{
     const postData = {
       name: name.trim(),
       password: password.trim(),
     };
-
+    
     const response = await login(postData);
-
+    
     if (
       response.data.player.name === name &&
       response.data.player.password === password
     ) {
       console.log(response.data.player);
       window.location.href = `/user/${response.data.player._id.toString()}`;
+     
     }
+    toast.success("login succeeded")
+  }catch(err){
+    console.error(err.message);
+    toast.error("failed to login")
+  }  
   };
 
   return (
