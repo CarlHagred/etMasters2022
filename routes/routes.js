@@ -14,6 +14,7 @@ import { login, loginAdmin } from '../controllers/login/login.js';
 import {
   deleteRound,
   getCompetitions,
+  getCourses,
 } from '../controllers/shared/sharedEndpoints.js';
 import { postRound } from '../controllers/players/roundEndPoint.js';
 
@@ -24,6 +25,8 @@ router.post('/newplayer/', postPlayer);
 router.get('/getLeaderboard/', getListOfPlayedRounds);
 
 router.get('/getplayers/', getPlayers);
+
+router.get('/getcourses', getCourses);
 
 router.get('/loginplayer/', login);
 

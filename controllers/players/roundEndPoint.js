@@ -6,10 +6,12 @@ import mongoose from 'mongoose';
 export const postRound = async (req, res) => {
   const points = req.query.points;
   const weather = req.query.weather;
-  const course = req.query.course;
+  const course = req.query.courseId;
   const mood = req.query.mood;
   const playerId = req.query.playerId;
   const competitonId = req.query.compId;
+
+  console.log(req.query);
 
   // const [points, weather, course, mood, playerId, compId] = req.query;
 

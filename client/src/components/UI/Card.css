@@ -5,4 +5,7 @@
   padding: 1rem;
   overflow: hidden;
   background: white;
+  width: 50%;
+  position: relative;
+  left: 25%;
 }

@@ -4,6 +4,7 @@ import {
   changeHandicap,
   deleteRound,
   getCompetitions,
+  getCourses,
   getPlayerRounds,
   registerRound,
   registerToCompetition,
@@ -17,6 +18,7 @@ const UserPage = () => {
   const [selectedRegComp, setSelectedRegComp] = useState({});
   const [selectedGetComp, setSelectedGetComp] = useState({});
   const [selectedRegRound, setSelectedRegRound] = useState({});
+  const [courses, setCourses] = useState([]);
 
   const [points, setPoints] = useState();
   const [course, setCourse] = useState();
@@ -37,6 +39,16 @@ const UserPage = () => {
     fetchComp();
   }, []);
 
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const course = await getCourses();
+      console.log(course.data);
+      setCourses(course.data.courses);
+    };
+
+    fetchCourse();
+  }, []);
+
   const handleRegisterToCompetition = (e) => {
     e.preventDefault();
     const params = {
@@ -51,7 +63,7 @@ const UserPage = () => {
 
     const params = {
       points: points,
-      course: course,
+      courseId: course._id,
       weather: weather,
       mood: mood,
       playerId: id,
@@ -139,13 +151,24 @@ const UserPage = () => {
           <label class="form-label inline-block mb-2 text-gray-700">
             {/* ska egentligen vara SELECT */}
             Course:
-            <Input
-              type="text"
-              name="course"
-              onChange={(e) => {
-                setCourse(e.target.value);
-              }}
-            />
+            <Select
+              multiple={false}
+              value={courses.name}
+              onChange={(e) =>
+                setCourse(
+                  courses.find((element) => element.name === e.target.value)
+                )
+              }
+            >
+              {courses.map((e, key) => {
+                return (
+                  <option key={key} value={e.name}>
+                    {e.name}
+                  </option>
+                );
+              })}
+              <option>Select Course</option>
+            </Select>
           </label>
           <label class="form-label inline-block mb-2 text-gray-700">
             Weather:

@@ -1,7 +1,6 @@
 import Player from '../../models/player.js';
 import mongoose from 'mongoose';
 import Competition from '../../models/competition.js';
-import Round from '../../models/round.js';
 
 export const getPlayers = async (req, res) => {
   let players;
@@ -70,7 +69,7 @@ export const changePlayerHandicap = async (req, res) => {
     { new: true },
     (err, doc) => {
       if (doc) {
-        res.status(200).send('Success');
+        res.status(200).send('Handicap changed');
       }
     }
   );
@@ -149,6 +148,12 @@ export const getRoundsPlayedPerPlayer = async (req, res) => {
       path: 'rounds',
       populate: { path: 'player', model: 'Player' },
     });
+  // .populate({
+  //   path: 'rounds',
+  //   populate: { path: 'course', model: 'Course' },
+  // });
+
+  console.log(competition);
 
   console.log(player.name);
 

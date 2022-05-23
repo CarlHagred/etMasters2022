@@ -91,6 +91,20 @@ export const getCompetitions = async () => {
     });
 };
 
+export const getCourses = async () => {
+  return await axios({
+    method: 'GET',
+    withCredentials: true,
+    url: `${serverUrl}/getcourses`,
+  })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
 export const registerToCompetition = (params) => {
   axios({
     method: 'POST',
