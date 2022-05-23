@@ -229,22 +229,27 @@ const UserPage = () => {
           <Button type="submit" onClick={handleGetRounds}>
             Get rounds
           </Button>
-          <div class="w-1/3 bg-white rounded-lg shadow">
-            <ul class="divide-y-2 divide-gray-100 text-gray-700">
-              {playerRounds.map((round) => (
-                <li class="p-3" key={round._id}>
-                  Course: {round.course} | Points: {round.points} | Weather:
-                  {round.weather} | Mood: {round.mood}
-                  <Button
-                    onClick={(e) => {
-                      handleRemoveRound(e, round._id);
-                    }}
+          <div class="flex justify-center mt-6">
+            <div class="  w-1/3 bg-white rounded-lg shadow">
+              <ul class="divide-y-2 divide-gray-100 text-gray-700 ">
+                {playerRounds.map((round) => (
+                  <li
+                    class="p-3 hover:bg-gray-600 hover:text-gray-200"
+                    key={round._id}
                   >
-                    Remove
-                  </Button>
-                </li>
-              ))}
-            </ul>
+                    Course: {round.course} | Points: {round.points} | Weather:
+                    {round.weather} | Mood: {round.mood}
+                    <Button
+                      onClick={(e) => {
+                        handleRemoveRound(e, round._id);
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </form>
       </Card>

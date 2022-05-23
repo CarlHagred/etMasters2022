@@ -15,6 +15,7 @@ rounded
 transition
 ease-in-out
 mt-2
+mb-2
 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`;
 
 export const Button = tw.button`
@@ -50,6 +51,6 @@ border border-solid border-gray-300
 rounded
 transition
 ease-in-out
-m-0
+mb-2
 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 `;
