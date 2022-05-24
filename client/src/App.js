@@ -36,7 +36,6 @@ const App = () => {
         "Runda 3. Runda 3 kommer vi alla spela på det tee som ligger längst fram. Det så kallade “Dam-tee”. Twisten med detta är att vinnaren på hålet innan får blockera en klubba per person på nästa hål. Putter får inte blockeras. Vinner samma person hålet därefter kvarstår den blockerade klubban som blockerad och vinnaren får blockera en ytterligare klubba. Annars resetas klubborna och den nya vinnaren får blockera en ny valfri klubba.",
     },
   ];
-  console.log(rounds);
 
   routes = (
     <>
