@@ -143,7 +143,7 @@ export const deleteRound = (params) => {
     url: `${serverUrl}/deleteround`,
   })
     .then((response) => {
-      console.log(response);
+      //console.log(response);
     })
     .catch((error) => {
       console.log(error.response);
@@ -151,7 +151,6 @@ export const deleteRound = (params) => {
 };
 
 export const deletePlayer = (params) => {
-  console.log("index 1");
   axios({
     method: "POST",
     params: params,

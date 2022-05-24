@@ -31,7 +31,7 @@ const UserPage = () => {
   useEffect(() => {
     const fetchComp = async () => {
       const comp = await getCompetitions();
-      console.log(comp.data);
+      //console.log(comp.data);
       const list = comp.data.competitions.map((comp) => comp.name);
       setCompetitions(comp.data.competitions);
     };
@@ -42,7 +42,7 @@ const UserPage = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       const course = await getCourses();
-      console.log(course.data);
+      //console.log(course.data);
       setCourses(course.data.courses);
     };
 
@@ -72,7 +72,7 @@ const UserPage = () => {
 
     registerRound(params);
   };
-  console.log(selectedGetComp);
+  //console.log(selectedGetComp);
 
   const handleChangeHandicap = (e) => {
     e.preventDefault();

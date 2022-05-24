@@ -20,7 +20,7 @@ const AdminLogin = (props) => {
       response.data.admin.name === name &&
       response.data.admin.password === password
     ) {
-      console.log(response.data.player);
+      //console.log(response.data.player);
       window.location.href = `/admin/${response.data.admin._id.toString()}`;
     }
   };

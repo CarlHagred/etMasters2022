@@ -17,10 +17,10 @@ export const getPlayers = async (req, res) => {
 export const registerPlayerToCompetition = async (req, res) => {
   const compID = req.query.compID;
   const playerID = req.query.playerID;
-  console.log(compID);
-  console.log(playerID);
+  //console.log(compID);
+  //console.log(playerID);
   const player = await Player.findById(playerID);
-  console.log(player);
+  //console.log(player);
   Competition.findById(compID, async (err, doc) => {
     if (doc && !doc.players.includes(playerID)) {
       try {
@@ -93,7 +93,7 @@ export const getListOfPlayedRounds = async (req, res) => {
 
   //competition.aggregate([{ $match: {} }, { $group: { _id: '$player' } }]);
 
-  console.log(competition);
+  // console.log(competition);
 
   let scoreList = {};
 
@@ -135,7 +135,7 @@ export const getTotalScoreForPlayer = async (req, res) => {
       });*/
     }
   });
-  console.log(totalScore);
+  //console.log(totalScore);
 };
 
 export const getRoundsPlayedPerPlayer = async (req, res) => {

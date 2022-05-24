@@ -42,7 +42,7 @@ export const getPlayers = async (req, res) => {
   try {
     const players = await Player.find();
     players.forEach((player) => {
-      console.log(player.name, player.handicap);
+      //console.log(player.name, player.handicap);
     });
     // console.log(players);
     // res.status(200).json(players);
@@ -54,7 +54,7 @@ export const getSpecificPlayer = async (req, res) => {
   const playerId = "6267baede7c6e6b3c324c7b2";
   const player = await Player.findById(playerId).populate("competition");
 
-  console.log(player.name, player.password, player.competition[0].name);
+  //console.log(player.name, player.password, player.competition[0].name);
 };
 
 export const deletePlayer = async (req, res) => {

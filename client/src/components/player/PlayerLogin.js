@@ -24,7 +24,7 @@ const PlayerLogin = () => {
         response.data.player.name === name &&
         response.data.player.password === password
       ) {
-        console.log(response.data.player);
+        //console.log(response.data.player);
         window.location.href = `/user/${response.data.player._id.toString()}`;
       }
       toast.success("login succeeded");

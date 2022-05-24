@@ -22,7 +22,7 @@ const LeaderBoard = () => {
       compId: selectedCompetiton._id,
     };
     const leaderBoardData = await getRoundsNPlayers(params);
-    console.log(leaderBoardData);
+    //console.log(leaderBoardData);
     JSON.stringify(leaderBoardData.data);
     const result = Object.keys(leaderBoardData.data).map((key) => [
       key,
@@ -30,7 +30,7 @@ const LeaderBoard = () => {
     ]);
     setPlayerNames(result);
   };
-  console.log(selectedCompetiton);
+  //console.log(selectedCompetiton);
   return (
     <React.Fragment>
       <Card>

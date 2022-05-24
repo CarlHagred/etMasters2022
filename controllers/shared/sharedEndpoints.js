@@ -18,7 +18,7 @@ export const getCompetitions = async (req, res) => {
 
 export const getSpecificCompetition = async (req, res) => {
   const competition = await Competition.findById("626908b9f30bd77383f8f935");
-  console.log(competition.name);
+  //console.log(competition.name);
 };
 
 export const getCourses = async (req, res) => {
