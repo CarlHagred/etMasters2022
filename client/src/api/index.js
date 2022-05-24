@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
-const serverUrl = 'http://localhost:8000/api';
+const serverUrl = "http://localhost:8000/api";
 
 /* ===== Login calls ===== */
 
 export const createPlayer = (params) => {
   axios({
-    method: 'POST',
+    method: "POST",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/newplayer`,
@@ -21,7 +21,7 @@ export const createPlayer = (params) => {
 
 export const getPlayers = async () => {
   return await axios({
-    method: 'GET',
+    method: "GET",
     withCredentials: true,
     url: `${serverUrl}/getplayers`,
   })
@@ -35,7 +35,7 @@ export const getPlayers = async () => {
 
 export const login = async (params) => {
   return await axios({
-    method: 'GET',
+    method: "GET",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/loginplayer`,
@@ -51,7 +51,7 @@ export const login = async (params) => {
 //inte LOGIN CALLS, omfg
 export const getRoundsNPlayers = async (params) => {
   return await axios({
-    method: 'GET',
+    method: "GET",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/getLeaderboard`,
@@ -65,7 +65,7 @@ export const getRoundsNPlayers = async (params) => {
 };
 export const loginAdmin = async (params) => {
   return await axios({
-    method: 'GET',
+    method: "GET",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/loginadmin`,
@@ -79,7 +79,7 @@ export const loginAdmin = async (params) => {
 };
 export const getCompetitions = async () => {
   return await axios({
-    method: 'GET',
+    method: "GET",
     withCredentials: true,
     url: `${serverUrl}/getcompetitions`,
   })
@@ -93,7 +93,7 @@ export const getCompetitions = async () => {
 
 export const getCourses = async () => {
   return await axios({
-    method: 'GET',
+    method: "GET",
     withCredentials: true,
     url: `${serverUrl}/getcourses`,
   })
@@ -107,7 +107,7 @@ export const getCourses = async () => {
 
 export const registerToCompetition = (params) => {
   axios({
-    method: 'POST',
+    method: "POST",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/registertocompetition`,
@@ -122,7 +122,7 @@ export const registerToCompetition = (params) => {
 
 export const registerRound = (params) => {
   axios({
-    method: 'POST',
+    method: "POST",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/postround`,
@@ -137,7 +137,7 @@ export const registerRound = (params) => {
 
 export const deleteRound = (params) => {
   axios({
-    method: 'POST',
+    method: "POST",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/deleteround`,
@@ -150,9 +150,25 @@ export const deleteRound = (params) => {
     });
 };
 
+export const deletePlayer = (params) => {
+  console.log("index 1");
+  axios({
+    method: "POST",
+    params: params,
+    withCredentials: true,
+    url: `${serverUrl}/deleteplayer`,
+  })
+    .then((response) => {
+      //console.log(response);
+    })
+    .catch((error) => {
+      console.log(`${serverUrl}/deleteplayer`);
+    });
+};
+
 export const changeHandicap = (params) => {
   axios({
-    method: 'PATCH',
+    method: "PATCH",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/changehandicap`,
@@ -167,7 +183,7 @@ export const changeHandicap = (params) => {
 
 export const getPlayerRounds = async (params) => {
   return await axios({
-    method: 'GET',
+    method: "GET",
     params: params,
     withCredentials: true,
     url: `${serverUrl}/getplayerrounds`,

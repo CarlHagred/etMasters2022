@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   changeHandicap,
   deleteRound,
@@ -8,9 +8,9 @@ import {
   getPlayerRounds,
   registerRound,
   registerToCompetition,
-} from '../api';
-import { Button, Input, Select } from '../styles';
-import Card from './UI/Card';
+} from "../api";
+import { Button, Input, Select } from "../styles";
+import Card from "./UI/Card";
 
 const UserPage = () => {
   const { id } = useParams();
@@ -104,7 +104,6 @@ const UserPage = () => {
     deleteRound(params);
     handleGetRounds();
   };
-  console.log(playerRounds);
 
   return (
     <>

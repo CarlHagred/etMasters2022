@@ -3,6 +3,7 @@ import Card from "../../components/UI/Card";
 
 import { createPlayer, getPlayers } from "../../api";
 import { Button, Input } from "../../styles";
+import { deletePlayer } from "../../api";
 
 const AdminPage = () => {
   const [name, setName] = useState("");
@@ -25,6 +26,15 @@ const AdminPage = () => {
     };
 
     createPlayer(postData);
+  };
+
+  const handleRemoveRound = (event, playerId) => {
+    event.preventDefault();
+    const params = {
+      playerId: playerId,
+    };
+    deletePlayer(params);
+    handleGetPlayers();
   };
 
   return (
@@ -70,6 +80,13 @@ const AdminPage = () => {
             <li key={player.name}>
               {player.name}
               {player.handicap}
+              <Button
+                onClick={(e) => {
+                  handleRemoveRound(e, player._id);
+                }}
+              >
+                Remove
+              </Button>
             </li>
           ))}
         </ul>

@@ -1,6 +1,6 @@
-import Player from '../../models/player.js';
-import mongoose from 'mongoose';
-import Competition from '../../models/competition.js';
+import Player from "../../models/player.js";
+import mongoose from "mongoose";
+import Competition from "../../models/competition.js";
 
 export const getPlayers = async (req, res) => {
   let players;
@@ -69,7 +69,7 @@ export const changePlayerHandicap = async (req, res) => {
     { new: true },
     (err, doc) => {
       if (doc) {
-        res.status(200).send('Handicap changed');
+        res.status(200).send("Handicap changed");
       }
     }
   );
@@ -85,10 +85,10 @@ export const getListOfPlayedRounds = async (req, res) => {
   // ]);
   // console.log(comp);
   const competition = await Competition.findById(compId)
-    .populate('players', 'name')
+    .populate("players", "name")
     .populate({
-      path: 'rounds',
-      populate: { path: 'player', model: 'Player' },
+      path: "rounds",
+      populate: { path: "player", model: "Player" },
     });
 
   //competition.aggregate([{ $match: {} }, { $group: { _id: '$player' } }]);
@@ -111,12 +111,12 @@ export const getListOfPlayedRounds = async (req, res) => {
 };
 
 export const getTotalScoreForPlayer = async (req, res) => {
-  const playerName = 'Jucke';
-  const competition = await Competition.findById('626908b9f30bd77383f8f935')
-    .populate('players', 'name')
+  const playerName = "Jucke";
+  const competition = await Competition.findById("626908b9f30bd77383f8f935")
+    .populate("players", "name")
     .populate({
-      path: 'rounds',
-      populate: { path: 'player', model: 'Player' },
+      path: "rounds",
+      populate: { path: "player", model: "Player" },
     });
   let totalScore = [];
 
@@ -143,19 +143,15 @@ export const getRoundsPlayedPerPlayer = async (req, res) => {
   const playerID = req.query.playerID;
   const player = await Player.findById(playerID);
   const competition = await Competition.findById(compID)
-    .populate('players', 'name')
+    .populate("players", "name")
     .populate({
-      path: 'rounds',
-      populate: { path: 'player', model: 'Player' },
+      path: "rounds",
+      populate: { path: "player", model: "Player" },
     });
   // .populate({
   //   path: 'rounds',
   //   populate: { path: 'course', model: 'Course' },
   // });
-
-  console.log(competition);
-
-  console.log(player.name);
 
   let roundsPerPlayer = [];
   competition.rounds.forEach((round) => {
