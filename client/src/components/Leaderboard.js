@@ -18,21 +18,27 @@ const LeaderBoard = () => {
 
   const handleGetLeaderBoard = async (e) => {
     e.preventDefault();
+    if (!selectedCompetiton.name.length) return;
+
     const params = {
       compId: selectedCompetiton._id,
     };
     const leaderBoardData = await getRoundsNPlayers(params);
+
     //console.log(leaderBoardData);
     JSON.stringify(leaderBoardData.data);
     const result = Object.keys(leaderBoardData.data).map((key) => [
       key,
       leaderBoardData.data[key],
     ]);
+    result.sort(function (player, nextPlayer) {
+      return nextPlayer[1] - player[1];
+    });
     setPlayerNames(result);
   };
   //console.log(selectedCompetiton);
   return (
-    <React.Fragment>
+    <>
       <Card>
         <form>
           <div className="flex justify-center">
@@ -132,7 +138,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
           </div>
         </div>
       </Card>
-    </React.Fragment>
+    </>
   );
 };
 
