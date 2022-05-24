@@ -2,14 +2,13 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LeaderBoard from "./components/Leaderboard";
 import MainNav from "./components/Navigation/MainNav";
-import Users from "./components/Users";
 import "./App.css";
 import RoundList from "./components/RoundList";
 import PlayerLogin from "./components/player/PlayerLogin";
 import UserPage from "./components/UserPage";
 import AdminPage from "./components/admin/AdminPage";
 import AdminLogin from "./components/admin/AdminLogin";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
@@ -46,7 +45,6 @@ const App = () => {
         <Route exact path="/playerLogin" element={<PlayerLogin />} />
         <Route exact path="/user/:id" element={<UserPage />} />
         <Route exact path="/admin/:id" element={<AdminPage />} />
-        <Route exact path="/users" element={<Users />} />
         <Route
           exact
           path="/rounds"
