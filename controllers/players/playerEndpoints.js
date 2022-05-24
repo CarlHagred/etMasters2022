@@ -1,6 +1,7 @@
 import Player from "../../models/player.js";
 import mongoose from "mongoose";
 import Competition from "../../models/competition.js";
+import Round from "../../models/round.js";
 
 export const getPlayers = async (req, res) => {
   let players;
@@ -76,6 +77,41 @@ export const changePlayerHandicap = async (req, res) => {
 };
 
 export const getListOfPlayedRounds = async (req, res) => {
+  //competition: req.params osv
+  const compId = req.query.compId;
+  // console.log(compId);
+
+  // const comp = await Competition.findById(compId).aggregate([
+  //   { $match: { _id: compId } },
+  // ]);
+  // console.log(comp);
+  const competition = await Competition.findById(compId)
+    .populate("players", "name")
+    .populate({
+      path: "rounds",
+      populate: { path: "player", model: "Player" },
+    });
+
+  //competition.aggregate([{ $match: {} }, { $group: { _id: '$player' } }]);
+
+  // console.log(competition);
+
+  let scoreList = {};
+
+  competition.rounds.forEach((round) => {
+    if (scoreList.hasOwnProperty(round.player.name)) {
+      scoreList[round.player.name] =
+        scoreList[round.player.name] + round.points;
+    } else {
+      scoreList[round.player.name] = round.points;
+    }
+  });
+
+  // Här kan vi få in mer data för att göra leaderboarden mer spännande
+  res.json(scoreList);
+};
+
+export const getRoundsForPlayer = async (req, res) => {
   //competition: req.params osv
   const compId = req.query.compId;
   // console.log(compId);

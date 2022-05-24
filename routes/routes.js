@@ -1,17 +1,18 @@
 import express from "express";
 
-import { getListOfPlayedRounds } from "../controllers/players/playerEndpoints.js";
 //import { login } from '../controllers/login/login.js';
 
 import {
   postPlayer,
   deletePlayer,
+  changeRoundPoint,
 } from "../controllers/admin/adminEndpoints.js";
 import {
   changePlayerHandicap,
   getPlayers,
   getRoundsPlayedPerPlayer,
   registerPlayerToCompetition,
+  getListOfPlayedRounds,
 } from "../controllers/players/playerEndpoints.js";
 import { login, loginAdmin } from "../controllers/login/login.js";
 import {
@@ -40,6 +41,8 @@ router.get("/getcompetitions", getCompetitions);
 router.get("/getplayerrounds", getRoundsPlayedPerPlayer);
 
 router.post("/registertocompetition", registerPlayerToCompetition);
+
+router.post("/changePointsOnRound", changeRoundPoint);
 
 router.post("/postround", postRound);
 

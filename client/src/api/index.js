@@ -63,6 +63,22 @@ export const getRoundsNPlayers = async (params) => {
       return error.response;
     });
 };
+
+export const changePointsOnRound = async (params) => {
+  return await axios({
+    method: "POST",
+    params: params,
+    withCredentials: true,
+    url: `${serverUrl}/changePointsOnRound`,
+  })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
 export const loginAdmin = async (params) => {
   return await axios({
     method: "GET",

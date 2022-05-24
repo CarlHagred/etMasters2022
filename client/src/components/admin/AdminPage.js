@@ -6,9 +6,10 @@ import {
   getPlayers,
   getCompetitions,
   getRoundsNPlayers,
+  getPlayerRounds,
 } from "../../api";
 import { Button, Input } from "../../styles";
-import { deletePlayer } from "../../api";
+import { deletePlayer, changePointsOnRound } from "../../api";
 
 const AdminPage = () => {
   const [name, setName] = useState("");
@@ -43,11 +44,22 @@ const AdminPage = () => {
     handleGetPlayers();
   };
 
+  const handleRoundPointChange = (event, roundId) => {
+    event.preventDefault();
+    const params = {
+      roundId: roundId,
+      points: newHandicap,
+    };
+    changePointsOnRound(params);
+    handleGetLeaderBoard(event);
+  };
+
   const [playerNames, setPlayerNames] = useState([]);
   const [competitions, setCompetitions] = useState([]);
   const [selectedCompetiton, setSelectedCompetition] = useState([]);
   const [newHandicap, setNewHandicap] = useState("");
   const [selectedPlayer, setSelectedPlayer] = useState();
+  const [totalCompScore, setTotalCompScore] = useState();
 
   useEffect(() => {
     const fetchComp = async () => {
@@ -57,6 +69,7 @@ const AdminPage = () => {
 
     fetchComp();
   }, []);
+  const [playerRounds, setPlayerRounds] = useState([]);
 
   const handleGetLeaderBoard = async (e) => {
     e.preventDefault();
@@ -64,10 +77,19 @@ const AdminPage = () => {
 
     const params = {
       compId: selectedCompetiton._id,
+      playerID: selectedPlayer._id,
     };
-    const leaderBoardData = await getRoundsNPlayers(params);
 
-    //console.log(leaderBoardData);
+    const rounds = await getPlayerRounds(params);
+    setPlayerRounds(rounds.rounds);
+
+    const paramsForLeaderBoard = {
+      compId: selectedCompetiton._id,
+    };
+    const leaderBoardData = await getRoundsNPlayers(paramsForLeaderBoard);
+    const playerTotalScore = leaderBoardData.data[selectedPlayer.name];
+    setTotalCompScore(playerTotalScore);
+
     JSON.stringify(leaderBoardData.data);
     const result = Object.keys(leaderBoardData.data).map((key) => [
       key,
@@ -138,8 +160,8 @@ const AdminPage = () => {
         </ul>
       </Card>
       <Card>
-        {selectedPlayer && selectedPlayer.name}{" "}
-        {selectedPlayer && selectedPlayer.handicap}{" "}
+        {selectedPlayer && `Player: ${selectedPlayer.name}`}{" "}
+        {selectedPlayer && `HCP: ${selectedPlayer.handicap}`}{" "}
         {selectedPlayer && (
           <Button
             onClick={(e) => {
@@ -190,8 +212,14 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
           </div>
           <div className="flex justify-center pt-3 mb-5 pb-8">
             <Button onClick={handleGetLeaderBoard}>
-              Get leaderboard for competition
+              Get rounds for that competition
             </Button>
+          </div>
+          <div className="flex justify-center pt-3 mb-5 pb-8">
+            <h3>
+              {selectedCompetiton.hasOwnProperty("_id") &&
+                `Total score ${totalCompScore}`}
+            </h3>
           </div>
         </form>
         <div className="flex justify-center">
@@ -211,7 +239,13 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
                         scope="col"
                         className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                       >
-                        Name
+                        Mood
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                      >
+                        Weather
                       </th>
                       <th
                         scope="col"
@@ -228,7 +262,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
                     </tr>
                   </thead>
                   <tbody>
-                    {playerNames.map((playerName, index) => {
+                    {playerRounds.map((round, index) => {
                       return (
                         <tr
                           className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
@@ -238,10 +272,13 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
                             {index + 1}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                            {playerName[0]}
+                            {round["mood"]}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                            {playerName[1]}
+                            {round["weather"]}
+                          </td>
+                          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            {round["points"]}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                             <form>
@@ -249,10 +286,18 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
                                 <Input
                                   type="number"
                                   name="name"
-                                  onChange={(e) => setName(e.target.value)}
+                                  onChange={(e) =>
+                                    setNewHandicap(e.target.value)
+                                  }
                                 />
                               </label>
-                              <Button onClick={handleSubmit}>Commit</Button>
+                              <Button
+                                onClick={(e) =>
+                                  handleRoundPointChange(e, round["_id"])
+                                }
+                              >
+                                Commit change
+                              </Button>
                             </form>
                           </td>
                         </tr>
