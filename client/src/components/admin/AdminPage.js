@@ -44,7 +44,7 @@ const AdminPage = () => {
       </Card>
       <Card>
         <form>
-          <label class="form-label inline-block mb-2 text-gray-700">
+          <label className="form-label inline-block mb-2 text-gray-700">
             Name:
             <Input
               type="text"
@@ -52,7 +52,7 @@ const AdminPage = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </label>
-          <label class="form-label inline-block mb-2 text-gray-700">
+          <label className="form-label inline-block mb-2 text-gray-700">
             password:
             <Input
               type="password"
@@ -60,7 +60,7 @@ const AdminPage = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <label class="form-label inline-block mb-2 text-gray-700">
+          <label className="form-label inline-block mb-2 text-gray-700">
             handicap:
             <Input
               type="number"

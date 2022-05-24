@@ -1,48 +1,47 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import {toast} from "react-toastify";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import Card from '../../components/UI/Card';
-import { login } from '../../api';
-import { Button, Input } from '../../styles';
+import Card from "../../components/UI/Card";
+import { login } from "../../api";
+import { Button, Input } from "../../styles";
 
 const PlayerLogin = () => {
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try{
-    const postData = {
-      name: name.trim(),
-      password: password.trim(),
-    };
-    
-    const response = await login(postData);
-    
-    if (
-      response.data.player.name === name &&
-      response.data.player.password === password
-    ) {
-      console.log(response.data.player);
-      window.location.href = `/user/${response.data.player._id.toString()}`;
-     
+    try {
+      const postData = {
+        name: name.trim(),
+        password: password.trim(),
+      };
+
+      const response = await login(postData);
+
+      if (
+        response.data.player.name === name &&
+        response.data.player.password === password
+      ) {
+        console.log(response.data.player);
+        window.location.href = `/user/${response.data.player._id.toString()}`;
+      }
+      toast.success("login succeeded");
+    } catch (err) {
+      console.error(err.message);
+      toast.error("failed to login");
     }
-    toast.success("login succeeded")
-  }catch(err){
-    console.error(err.message);
-    toast.error("failed to login")
-  }  
   };
 
   return (
     <>
       <Card>
         <form>
-          <div class="form-group mb-6">
+          <div className="form-group mb-6">
             <label
-              for="exampleInputEmail2"
-              class="form-label inline-block mb-2 text-gray-700"
+              htmlFor="exampleInputEmail2"
+              className="form-label inline-block mb-2 text-gray-700"
             >
               Name
             </label>
@@ -55,17 +54,17 @@ const PlayerLogin = () => {
               }}
             />
           </div>
-          <div class="form-group mb-6">
+          <div className="form-group mb-6">
             <label
-              for="exampleInputEmail2"
-              class="form-label inline-block mb-2 text-gray-700"
+              htmlFor="exampleInputEmail2"
+              className="form-label inline-block mb-2 text-gray-700"
             >
               Password
             </label>
             <Input
               placeholder="Enter password"
               type="password"
-              name="password"
+              className="password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
