@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 
 //import { login } from '../controllers/login/login.js';
 
@@ -6,52 +6,55 @@ import {
   postPlayer,
   deletePlayer,
   changeRoundPoint,
-} from "../controllers/admin/adminEndpoints.js";
+  postCourse,
+} from '../controllers/admin/adminEndpoints.js';
 import {
   changePlayerHandicap,
   getPlayers,
   getRoundsPlayedPerPlayer,
   registerPlayerToCompetition,
   getListOfPlayedRounds,
-} from "../controllers/players/playerEndpoints.js";
-import { login, loginAdmin } from "../controllers/login/login.js";
+} from '../controllers/players/playerEndpoints.js';
+import { login, loginAdmin } from '../controllers/login/login.js';
 import {
   deleteRound,
   getCompetitions,
   getCourses,
-} from "../controllers/shared/sharedEndpoints.js";
-import { postRound } from "../controllers/players/roundEndPoint.js";
+} from '../controllers/shared/sharedEndpoints.js';
+import { postRound } from '../controllers/players/roundEndPoint.js';
 
 const router = express.Router();
 
-router.post("/newplayer/", postPlayer);
+router.post('/newplayer/', postPlayer);
 
-router.get("/getLeaderboard/", getListOfPlayedRounds);
+router.post('/postcourse', postCourse);
 
-router.get("/getplayers/", getPlayers);
+router.get('/getLeaderboard/', getListOfPlayedRounds);
 
-router.get("/getcourses", getCourses);
+router.get('/getplayers/', getPlayers);
 
-router.get("/loginplayer/", login);
+router.get('/getcourses', getCourses);
 
-router.get("/loginadmin", loginAdmin);
+router.get('/loginplayer/', login);
 
-router.get("/getcompetitions", getCompetitions);
+router.get('/loginadmin', loginAdmin);
 
-router.get("/getplayerrounds", getRoundsPlayedPerPlayer);
+router.get('/getcompetitions', getCompetitions);
 
-router.post("/registertocompetition", registerPlayerToCompetition);
+router.get('/getplayerrounds', getRoundsPlayedPerPlayer);
 
-router.post("/changePointsOnRound", changeRoundPoint);
+router.post('/registertocompetition', registerPlayerToCompetition);
 
-router.post("/postround", postRound);
+router.post('/changePointsOnRound', changeRoundPoint);
 
-router.post("/deleteround", deleteRound);
+router.post('/postround', postRound);
 
-router.patch("/changehandicap", changePlayerHandicap);
+router.post('/deleteround', deleteRound);
 
-router.patch("/changehandicap", changePlayerHandicap);
+router.patch('/changehandicap', changePlayerHandicap);
 
-router.post("/deleteplayer", deletePlayer);
+router.patch('/changehandicap', changePlayerHandicap);
+
+router.post('/deleteplayer', deletePlayer);
 
 export default router;
