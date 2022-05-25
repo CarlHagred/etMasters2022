@@ -1,10 +1,10 @@
-import Competition from '../../models/competition.js';
-import Player from '../../models/player.js';
-import Round from '../../models/round.js';
-import Course from '../../models/course.js';
+import Competition from "../../models/competition.js";
+import Player from "../../models/player.js";
+import Round from "../../models/round.js";
+import Course from "../../models/course.js";
 
 export const postCompetition = async (req, res) => {
-  const name = 'Major';
+  const name = "Major";
   Competition.findOne({ name: name }, async (err, doc) => {
     if (err) res.send(err);
     if (!doc) {
@@ -33,7 +33,7 @@ export const postPlayer = async (req, res) => {
         competition: [],
       });
       await newPlayer.save();
-      res.status(201).json('Success');
+      res.status(201).json("Success");
     }
   });
 };
@@ -42,7 +42,7 @@ export const getPlayers = async (req, res) => {
   try {
     const players = await Player.find();
     players.forEach((player) => {
-      console.log(player.name, player.handicap);
+      //console.log(player.name, player.handicap);
     });
     // console.log(players);
     // res.status(200).json(players);
@@ -51,27 +51,29 @@ export const getPlayers = async (req, res) => {
   }
 };
 export const getSpecificPlayer = async (req, res) => {
-  const playerId = '6267baede7c6e6b3c324c7b2';
-  const player = await Player.findById(playerId).populate('competition');
+  const playerId = "6267baede7c6e6b3c324c7b2";
+  const player = await Player.findById(playerId).populate("competition");
 
-  console.log(player.name, player.password, player.competition[0].name);
+  //console.log(player.name, player.password, player.competition[0].name);
 };
 
 export const deletePlayer = async (req, res) => {
-  const name = 'joel'; //req.body.name;
-  await Player.deleteOne({ name: name }).then((player) => {
+  const playerId = req.query.playerId;
+  await Player.deleteOne({ _id: playerId }).then((player) => {
     if (!player) {
-      /* return res.status(404).send({
-        message: "Player not found with name: " + name,
-      });*/
+      return res.status(404).send({
+        message: "Player not found",
+      });
     }
-    //res.status(200).send({ message: "Patient deleted successfully!" });
+    res.status(200).send({ message: "PLayer deleted successfully!" });
   });
 };
 
 export const changeRoundPoint = async (req, res) => {
-  const roundID = '6268dfc4a5a0770b88aa7bca'; //req.params.roundID;
-  const points = 34; //req.params.points;
+  const roundID = req.query.roundId;
+  const points = req.query.points;
+  //const roundID = "6268dfc4a5a0770b88aa7bca"; //req.params.roundID;
+  //const points = 34; //req.params.points;
   Round.findOneAndUpdate(
     { _id: roundID },
     { $set: { points: points } },
@@ -85,8 +87,8 @@ export const changeRoundPoint = async (req, res) => {
 };
 
 export const postCourse = async (req, res) => {
-  const name = 'Bokskogen';
-  const place = 'Bara';
+  const name = "Bokskogen";
+  const place = "Bara";
 
   Course.findOne({ name: name }, async (err, doc) => {
     if (err) res.send(err);

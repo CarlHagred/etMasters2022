@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Card from '../../components/UI/Card';
@@ -58,7 +57,7 @@ const PlayerLogin = () => {
             <Input
               placeholder="Enter password"
               type="password"
-              name="password"
+              className="password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}

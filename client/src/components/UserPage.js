@@ -32,6 +32,8 @@ const UserPage = () => {
   useEffect(() => {
     const fetchComp = async () => {
       const comp = await getCompetitions();
+      //console.log(comp.data);
+      const list = comp.data.competitions.map((comp) => comp.name);
       setCompetitions(comp.data.competitions);
     };
 
@@ -41,6 +43,7 @@ const UserPage = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       const course = await getCourses();
+      //console.log(course.data);
       setCourses(course.data.courses);
     };
 
@@ -83,7 +86,7 @@ const UserPage = () => {
       toast.error('Not able to register round!');
     }
   };
-  console.log(selectedGetComp);
+  //console.log(selectedGetComp);
 
   const handleChangeHandicap = (e) => {
     e.preventDefault();
@@ -122,7 +125,6 @@ const UserPage = () => {
     deleteRound(params);
     handleGetRounds();
   };
-  console.log(playerRounds);
 
   return (
     <>
@@ -156,7 +158,7 @@ const UserPage = () => {
       </Card>
       <Card>
         <form>
-          <label class="form-label inline-block mb-2 text-gray-700">
+          <label className="form-label inline-block mb-2 text-gray-700">
             Points:
             <Input
               type="number"
@@ -167,7 +169,7 @@ const UserPage = () => {
               }}
             />
           </label>
-          <label class="form-label inline-block mb-2 text-gray-700">
+          <label className="form-label inline-block mb-2 text-gray-700">
             {/* ska egentligen vara SELECT */}
             Course:
             <Select
@@ -189,7 +191,7 @@ const UserPage = () => {
               <option>Select Course</option>
             </Select>
           </label>
-          <label class="form-label inline-block mb-2 text-gray-700">
+          <label className="form-label inline-block mb-2 text-gray-700">
             Weather:
             <Input
               type="text"
@@ -200,7 +202,7 @@ const UserPage = () => {
               }}
             />
           </label>
-          <label class="form-label inline-block mb-2 text-gray-700">
+          <label className="form-label inline-block mb-2 text-gray-700">
             Mood:
             <Input
               type="text"
@@ -237,7 +239,7 @@ const UserPage = () => {
       </Card>
       <Card>
         <form>
-          <label class="form-label inline-block mb-2 text-gray-700">
+          <label className="form-label inline-block mb-2 text-gray-700">
             Submit new handicap
           </label>
           <Input
@@ -274,12 +276,12 @@ const UserPage = () => {
           <Button type="submit" onClick={handleGetRounds}>
             Get rounds
           </Button>
-          <div class="flex justify-center mt-6">
-            <div class="  w-1/3 bg-white rounded-lg shadow">
-              <ul class="divide-y-2 divide-gray-100 text-gray-700 ">
+          <div className="flex justify-center mt-6">
+            <div className="  w-1/3 bg-white rounded-lg shadow">
+              <ul className="divide-y-2 divide-gray-100 text-gray-700 ">
                 {playerRounds.map((round) => (
                   <li
-                    class="p-3 hover:bg-gray-600 hover:text-gray-200"
+                    className="p-3 hover:bg-gray-600 hover:text-gray-200"
                     key={round._id}
                   >
                     | Points: {round.points} | Weather:

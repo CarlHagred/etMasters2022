@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { getCompetitions, getRoundsNPlayers } from '../api';
-import { Button, Select } from '../styles';
-import Card from './UI/Card';
+import React, { useEffect, useState } from "react";
+import { getCompetitions, getRoundsNPlayers } from "../api";
+import { Button, Select } from "../styles";
+import Card from "./UI/Card";
 
 const LeaderBoard = () => {
   const [playerNames, setPlayerNames] = useState([]);
@@ -18,26 +18,32 @@ const LeaderBoard = () => {
 
   const handleGetLeaderBoard = async (e) => {
     e.preventDefault();
+    if (!selectedCompetiton.name.length) return;
+
     const params = {
       compId: selectedCompetiton._id,
     };
     const leaderBoardData = await getRoundsNPlayers(params);
-    console.log(leaderBoardData);
+
+    //console.log(leaderBoardData);
     JSON.stringify(leaderBoardData.data);
     const result = Object.keys(leaderBoardData.data).map((key) => [
       key,
       leaderBoardData.data[key],
     ]);
+    result.sort(function (player, nextPlayer) {
+      return nextPlayer[1] - player[1];
+    });
     setPlayerNames(result);
   };
-  console.log(selectedCompetiton);
+  //console.log(selectedCompetiton);
   return (
-    <React.Fragment>
+    <>
       <Card>
         <form>
-          <div class="flex justify-center">
+          <div className="flex justify-center">
             <select
-              class="
+              className="
           flex justify-center
 
 w-96
@@ -73,34 +79,34 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
               <option>Select Competition</option>
             </select>
           </div>
-          <div class="flex justify-center pt-3 mb-5 pb-8">
+          <div className="flex justify-center pt-3 mb-5 pb-8">
             <Button onClick={handleGetLeaderBoard}>
               Get leaderboard for competition
             </Button>
           </div>
         </form>
-        <div class="flex justify-center">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8 border">
-              <div class="overflow-hidden">
-                <table class="overflow-hidden ">
-                  <thead class="bg-white border-b">
+        <div className="flex justify-center">
+          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 border">
+              <div className="overflow-hidden">
+                <table className="overflow-hidden ">
+                  <thead className="bg-white border-b">
                     <tr>
                       <th
                         scope="col"
-                        class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                       >
                         Position
                       </th>
                       <th
                         scope="col"
-                        class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                       >
                         Name
                       </th>
                       <th
                         scope="col"
-                        class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                       >
                         Points
                       </th>
@@ -110,16 +116,16 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
                     {playerNames.map((playerName, index) => {
                       return (
                         <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                          className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                           key={index}
                         >
-                          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {index + 1}
                           </td>
-                          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                             {playerName[0]}
                           </td>
-                          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                             {playerName[1]}
                           </td>
                         </tr>
@@ -132,7 +138,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
           </div>
         </div>
       </Card>
-    </React.Fragment>
+    </>
   );
 };
 
