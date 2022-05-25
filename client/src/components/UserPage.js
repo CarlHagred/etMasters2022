@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   changeHandicap,
   deleteRound,
@@ -20,19 +21,17 @@ const UserPage = () => {
   const [selectedRegRound, setSelectedRegRound] = useState({});
   const [courses, setCourses] = useState([]);
 
-  const [points, setPoints] = useState();
+  const [points, setPoints] = useState(0);
   const [course, setCourse] = useState();
-  const [weather, setWeather] = useState();
-  const [mood, setMood] = useState();
-  const [handicap, setHandicap] = useState();
+  const [weather, setWeather] = useState('');
+  const [mood, setMood] = useState('');
+  const [handicap, setHandicap] = useState(0);
 
   const [playerRounds, setPlayerRounds] = useState([]);
 
   useEffect(() => {
     const fetchComp = async () => {
       const comp = await getCompetitions();
-      console.log(comp.data);
-      const list = comp.data.competitions.map((comp) => comp.name);
       setCompetitions(comp.data.competitions);
     };
 
@@ -42,7 +41,6 @@ const UserPage = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       const course = await getCourses();
-      console.log(course.data);
       setCourses(course.data.courses);
     };
 
@@ -51,37 +49,57 @@ const UserPage = () => {
 
   const handleRegisterToCompetition = (e) => {
     e.preventDefault();
-    const params = {
-      compID: selectedRegComp._id,
-      playerID: id,
-    };
-    registerToCompetition(params);
+    try {
+      const params = {
+        compID: selectedRegComp._id,
+        playerID: id,
+      };
+      registerToCompetition(params);
+      toast.success('Registered to competition successful');
+    } catch (err) {
+      toast.error('Unable to register');
+    }
   };
 
   const handlePostRound = async (e) => {
     e.preventDefault();
+    try {
+      const params = {
+        points: points,
+        courseId: course._id,
+        weather: weather,
+        mood: mood,
+        playerId: id,
+        compId: selectedRegRound._id,
+      };
 
-    const params = {
-      points: points,
-      courseId: course._id,
-      weather: weather,
-      mood: mood,
-      playerId: id,
-      compId: selectedRegRound._id,
-    };
-
-    registerRound(params);
+      registerRound(params);
+      toast.success('Round registered!');
+      setPoints(0);
+      setWeather('');
+      setMood('');
+    } catch (err) {
+      console.log(err);
+      toast.error('Not able to register round!');
+    }
   };
   console.log(selectedGetComp);
 
   const handleChangeHandicap = (e) => {
     e.preventDefault();
+    try {
+      const params = {
+        playerId: id,
+        handicap,
+      };
+      changeHandicap(params);
 
-    const params = {
-      playerId: id,
-      handicap,
-    };
-    changeHandicap(params);
+      toast.success('Handicap changed');
+    } catch (err) {
+      console.log(err.message);
+      toast.error('Unable to change handicap');
+    }
+    setHandicap(0);
   };
 
   const handleGetRounds = async (e) => {
@@ -143,6 +161,7 @@ const UserPage = () => {
             <Input
               type="number"
               name="points"
+              value={points}
               onChange={(e) => {
                 setPoints(e.target.value);
               }}
@@ -175,6 +194,7 @@ const UserPage = () => {
             <Input
               type="text"
               name="weather"
+              value={weather}
               onChange={(e) => {
                 setWeather(e.target.value);
               }}
@@ -185,6 +205,7 @@ const UserPage = () => {
             <Input
               type="text"
               name="mood"
+              value={mood}
               onChange={(e) => {
                 setMood(e.target.value);
               }}
@@ -222,6 +243,7 @@ const UserPage = () => {
           <Input
             type="number"
             name="points"
+            value={handicap}
             onChange={(e) => {
               setHandicap(e.target.value);
             }}
@@ -260,8 +282,8 @@ const UserPage = () => {
                     class="p-3 hover:bg-gray-600 hover:text-gray-200"
                     key={round._id}
                   >
-                    Course: {round.course} | Points: {round.points} | Weather:
-                    {round.weather} | Mood: {round.mood}
+                    | Points: {round.points} | Weather:
+                    {round.weather} | Mood: {round.mood} |
                     <Button
                       onClick={(e) => {
                         handleRemoveRound(e, round._id);
