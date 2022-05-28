@@ -2,7 +2,7 @@
 
 ## Setup
 
-Executing Program - Server
+Installing the Program 
 ```
 $ git clone [https://github.com/CarlHagred/etMasters2022]
 $ npm ci
