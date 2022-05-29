@@ -12,11 +12,11 @@ $ npm ci
 
 Executing Program - Server
 ```
-$ npm run
+$ npm start
 ```
 
 Executing Program - Client
 ```
 $ cd client
-$ npm run
+$ npm start
 ```
