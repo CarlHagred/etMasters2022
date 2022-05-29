@@ -1,7 +1,5 @@
 import express from "express";
 
-//import { login } from '../controllers/login/login.js';
-
 import {
   postPlayer,
   deletePlayer,

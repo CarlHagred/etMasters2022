@@ -1,7 +1,6 @@
 import Player from "../../models/player.js";
 import mongoose from "mongoose";
 import Competition from "../../models/competition.js";
-import Round from "../../models/round.js";
 
 export const getPlayers = async (req, res) => {
   let players;
@@ -18,10 +17,7 @@ export const getPlayers = async (req, res) => {
 export const registerPlayerToCompetition = async (req, res) => {
   const compID = req.query.compID;
   const playerID = req.query.playerID;
-  //console.log(compID);
-  //console.log(playerID);
   const player = await Player.findById(playerID);
-  //console.log(player);
   Competition.findById(compID, async (err, doc) => {
     if (doc && !doc.players.includes(playerID)) {
       try {
@@ -42,10 +38,8 @@ export const registerPlayerToCompetition = async (req, res) => {
 export const registerCompetitionToPlayer = async (req) => {
   const compID = req.query.compID;
   const playerID = req.query.playerID;
-  //Temporär lösning för att inte göra fler av samma competition för samma spelare
   const competition = await Competition.findById(compID);
   Player.findOne({ competition: competition }, async (err, doc) => {
-    //if (err) res.send(err);
     if (!doc) {
       const player = await Player.findById(playerID);
       try {
@@ -79,22 +73,13 @@ export const changePlayerHandicap = async (req, res) => {
 export const getListOfPlayedRounds = async (req, res) => {
   //competition: req.params osv
   const compId = req.query.compId;
-  // console.log(compId);
 
-  // const comp = await Competition.findById(compId).aggregate([
-  //   { $match: { _id: compId } },
-  // ]);
-  // console.log(comp);
   const competition = await Competition.findById(compId)
     .populate("players", "name")
     .populate({
       path: "rounds",
       populate: { path: "player", model: "Player" },
     });
-
-  //competition.aggregate([{ $match: {} }, { $group: { _id: '$player' } }]);
-
-  // console.log(competition);
 
   let scoreList = {};
 
@@ -114,22 +99,13 @@ export const getListOfPlayedRounds = async (req, res) => {
 export const getRoundsForPlayer = async (req, res) => {
   //competition: req.params osv
   const compId = req.query.compId;
-  // console.log(compId);
 
-  // const comp = await Competition.findById(compId).aggregate([
-  //   { $match: { _id: compId } },
-  // ]);
-  // console.log(comp);
   const competition = await Competition.findById(compId)
     .populate("players", "name")
     .populate({
       path: "rounds",
       populate: { path: "player", model: "Player" },
     });
-
-  //competition.aggregate([{ $match: {} }, { $group: { _id: '$player' } }]);
-
-  // console.log(competition);
 
   let scoreList = {};
 
@@ -146,34 +122,6 @@ export const getRoundsForPlayer = async (req, res) => {
   res.json(scoreList);
 };
 
-export const getTotalScoreForPlayer = async (req, res) => {
-  const playerName = "Jucke";
-  const competition = await Competition.findById("626908b9f30bd77383f8f935")
-    .populate("players", "name")
-    .populate({
-      path: "rounds",
-      populate: { path: "player", model: "Player" },
-    });
-  let totalScore = [];
-
-  competition.rounds.forEach((round) => {
-    //console.log(round.player._id.toString());
-    if (playerName === round.player.name) {
-      if (totalScore.hasOwnProperty(round.player.name)) {
-        totalScore[round.player.name] =
-          totalScore[round.player.name] + round.points;
-      } else {
-        totalScore[round.player.name] = round.points;
-      }
-    } else {
-      /* return res.status(404).send({
-        message: "Player not found with name: " + playerName,
-      });*/
-    }
-  });
-  //console.log(totalScore);
-};
-
 export const getRoundsPlayedPerPlayer = async (req, res) => {
   const compID = req.query.compId;
   const playerID = req.query.playerID;
@@ -184,10 +132,6 @@ export const getRoundsPlayedPerPlayer = async (req, res) => {
       path: "rounds",
       populate: { path: "player", model: "Player" },
     });
-  // .populate({
-  //   path: 'rounds',
-  //   populate: { path: 'course', model: 'Course' },
-  // });
 
   let roundsPerPlayer = [];
   competition.rounds.forEach((round) => {
@@ -199,23 +143,4 @@ export const getRoundsPlayedPerPlayer = async (req, res) => {
   res.json({
     rounds: roundsPerPlayer,
   });
-
-  // let totalScore = [];
-
-  // competition.rounds.forEach((round) => {
-  //   //console.log(round.player._id.toString());
-  //   if (playerName === round.player.name) {
-  //     if (totalScore.hasOwnProperty(round.player.name)) {
-  //       totalScore[round.player.name] =
-  //         totalScore[round.player.name] + round.points;
-  //     } else {
-  //       totalScore[round.player.name] = round.points;
-  //     }
-  //   } else {
-  //     /* return res.status(404).send({
-  //       message: "Player not found with name: " + playerName,
-  //     });*/
-  //   }
-  // });
-  //console.log(totalScore);
 };
