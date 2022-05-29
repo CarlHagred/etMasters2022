@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { toast } from "react-toastify";
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
-import Card from "../../components/UI/Card";
-import { login } from "../../api";
-import { Button, Input } from "../../styles";
+import Card from '../../components/UI/Card';
+import { login } from '../../api';
+import { Button, Input } from '../../styles';
 
 const PlayerLogin = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,13 +23,13 @@ const PlayerLogin = () => {
         response.data.player.name === name &&
         response.data.player.password === password
       ) {
-        //console.log(response.data.player);
+        console.log(response.data.player);
+        toast.success('Login succeeded');
         window.location.href = `/user/${response.data.player._id.toString()}`;
       }
-      toast.success("login succeeded");
     } catch (err) {
       console.error(err.message);
-      toast.error("failed to login");
+      toast.error('Failed to login, check your credentials');
     }
   };
 
@@ -38,11 +37,8 @@ const PlayerLogin = () => {
     <>
       <Card>
         <form>
-          <div className="form-group mb-6">
-            <label
-              htmlFor="exampleInputEmail2"
-              className="form-label inline-block mb-2 text-gray-700"
-            >
+          <div class="form-group mb-6">
+            <label class="form-label inline-block mb-2 text-gray-700">
               Name
             </label>
             <Input
@@ -54,11 +50,8 @@ const PlayerLogin = () => {
               }}
             />
           </div>
-          <div className="form-group mb-6">
-            <label
-              htmlFor="exampleInputEmail2"
-              className="form-label inline-block mb-2 text-gray-700"
-            >
+          <div class="form-group mb-6">
+            <label class="form-label inline-block mb-2 text-gray-700">
               Password
             </label>
             <Input

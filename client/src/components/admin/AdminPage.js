@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Card from "../../components/UI/Card";
+import React, { useState, useEffect } from 'react';
+import Card from '../../components/UI/Card';
 
 import {
   createPlayer,
@@ -7,15 +7,20 @@ import {
   getCompetitions,
   getRoundsNPlayers,
   getPlayerRounds,
-} from "../../api";
-import { Button, Input } from "../../styles";
-import { deletePlayer, changePointsOnRound } from "../../api";
+  createCourse,
+} from '../../api';
+import { Button, Input } from '../../styles';
+import { deletePlayer, changePointsOnRound } from '../../api';
+import { toast } from 'react-toastify';
 
 const AdminPage = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [handicap, setHandicap] = useState("");
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [handicap, setHandicap] = useState('');
   const [players, setPlayers] = useState([]);
+
+  const [courseName, setCourseName] = useState('');
+  const [coursePlace, setCoursePlace] = useState('');
 
   const handleGetPlayers = async () => {
     const play = await getPlayers();
@@ -32,6 +37,29 @@ const AdminPage = () => {
     };
 
     createPlayer(postData);
+    toast.success('Player created!');
+    setName('');
+    setPassword('');
+    setHandicap('');
+  };
+
+  const handleCreateCourse = (e) => {
+    e.preventDefault();
+
+    try {
+      const postData = {
+        courseName: courseName,
+        coursePlace: coursePlace,
+      };
+
+      createCourse(postData);
+      toast.success('Course created');
+    } catch (err) {
+      console.log(err.message);
+      toast.error('Course not able to be created!');
+    }
+    setCourseName('');
+    setCoursePlace('');
   };
 
   const handleRemovePlayer = (event, playerId) => {
@@ -57,9 +85,10 @@ const AdminPage = () => {
   const [playerNames, setPlayerNames] = useState([]);
   const [competitions, setCompetitions] = useState([]);
   const [selectedCompetiton, setSelectedCompetition] = useState([]);
-  const [newHandicap, setNewHandicap] = useState("");
+  const [newHandicap, setNewHandicap] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState();
   const [totalCompScore, setTotalCompScore] = useState();
+  const [playerRounds, setPlayerRounds] = useState([]);
 
   useEffect(() => {
     const fetchComp = async () => {
@@ -69,7 +98,6 @@ const AdminPage = () => {
 
     fetchComp();
   }, []);
-  const [playerRounds, setPlayerRounds] = useState([]);
 
   const handleGetLeaderBoard = async (e) => {
     e.preventDefault();
@@ -118,6 +146,7 @@ const AdminPage = () => {
             <Input
               type="text"
               name="name"
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </label>
@@ -126,6 +155,7 @@ const AdminPage = () => {
             <Input
               type="password"
               name="password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
@@ -134,10 +164,32 @@ const AdminPage = () => {
             <Input
               type="number"
               name="handicap"
+              value={handicap}
               onChange={(e) => setHandicap(e.target.value)}
             />
           </label>
           <Button onClick={handleSubmit}>Add Player</Button>
+        </form>
+      </Card>
+      <Card>
+        <form>
+          <label className="form-label inline-block mb-2 text-gray-700">
+            Course name:
+            <Input
+              type="text"
+              value={courseName}
+              onChange={(e) => setCourseName(e.target.value)}
+            />
+          </label>
+          <label className="form-label inline-block mb-2 text-gray-700">
+            Course place:
+            <Input
+              type="text"
+              value={coursePlace}
+              onChange={(e) => setCoursePlace(e.target.value)}
+            />
+          </label>
+          <Button onClick={handleCreateCourse}>Add Course</Button>
         </form>
       </Card>
       <Card>
@@ -160,8 +212,8 @@ const AdminPage = () => {
         </ul>
       </Card>
       <Card>
-        {selectedPlayer && `Player: ${selectedPlayer.name}`}{" "}
-        {selectedPlayer && `HCP: ${selectedPlayer.handicap}`}{" "}
+        {selectedPlayer && `Player: ${selectedPlayer.name}`}{' '}
+        {selectedPlayer && `HCP: ${selectedPlayer.handicap}`}{' '}
         {selectedPlayer && (
           <Button
             onClick={(e) => {
@@ -217,7 +269,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
           </div>
           <div className="flex justify-center pt-3 mb-5 pb-8">
             <h3>
-              {selectedCompetiton.hasOwnProperty("_id") &&
+              {selectedCompetiton.hasOwnProperty('_id') &&
                 `Total score ${totalCompScore}`}
             </h3>
           </div>
@@ -272,13 +324,13 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
                             {index + 1}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                            {round["mood"]}
+                            {round['mood']}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                            {round["weather"]}
+                            {round['weather']}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                            {round["points"]}
+                            {round['points']}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                             <form>
@@ -293,7 +345,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`"
                               </label>
                               <Button
                                 onClick={(e) =>
-                                  handleRoundPointChange(e, round["_id"])
+                                  handleRoundPointChange(e, round['_id'])
                                 }
                               >
                                 Commit change
